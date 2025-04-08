@@ -1,0 +1,151 @@
+
+// Hide Browser Address Bar
+function doScroll() { if (window.pageYOffset === 0) { window.scrollTo(0,1); } }
+
+function footerH2Accordion() {
+	$(this).next().next().slideToggle("fast");
+	if ($(this).hasClass("headOpen")) {
+		$(this).removeClass("headOpen").addClass("headClose");
+	} else if ($(this).hasClass("headClose")) {
+		$(this).removeClass("headClose").addClass("headOpen");
+	}
+}
+function footerH3Accordion() {
+	$(this).next().slideToggle("fast");
+	if ($(this).hasClass("contentOpen")) {
+		$(this).removeClass("contentOpen").addClass("contentClose");
+	} else if ($(this).hasClass("contentClose")) {
+		$(this).removeClass("contentClose").addClass("contentOpen");
+	}
+}
+function getRecommendItemSize(def) {
+	if(is_mobile()){
+		var itemSize = 120 + 5 + 5;
+		return Math.floor(($(window).width() - $("div.prev").width()*2)/itemSize);
+	} else {
+		return def;
+	}
+}
+function AccordionMenu() {
+	$(this).next().slideToggle("fast");
+	if ($(this).hasClass("contentOpen")) {
+		$(this).removeClass("contentOpen").addClass("contentClose");
+	} else if ($(this).hasClass("contentClose")) {
+		$(this).removeClass("contentClose").addClass("contentOpen");
+	}
+}
+
+
+$(function() {
+	// slideMenu
+	$('<div class="slideMenuMask"></div>').appendTo($('.wrapAll'));
+
+
+	// Set the slide menu
+	$("<div class='slideMenu'><div class='slideMenuWrap'></div></div>").insertBefore($(".wrapAll"));
+	$("#snCategory ul:first").clone(true).appendTo($(".slideMenuWrap")).css("display","block");
+	$("#storeHeaderWrap").insertBefore(".slideMenuWrap > ul");
+
+
+	//Set the header menu
+	$("<div id='headerSearchMenu'><span>商品搜索</span></div>").appendTo("#headerbar");
+	$("#hSearch").insertAfter("#headerbar");
+	$("#sSubmit").appendTo("#hSearch #headerSearch");
+
+	$(".slideMenuMask").on("click",function(){
+		$("body").toggleClass("slideMenuOpen");
+		$("#header").css("z-index", "100");
+		$(".wrapAll").removeClass("active");
+
+		$("#hSearch").slideUp("fast");
+		$("#globalNav").slideUp("fast");
+
+		var currentPos = $(this).scrollTop();
+		if (currentPos == 0) {
+			$("#header").removeClass('scroll');
+		} else {
+			$("#header").addClass('scroll');
+		}
+	});
+
+	$("#globalNavBtn").on("click",function(){
+		$("body").toggleClass("slideMenuOpen");
+		if ( $(".wrapAll").hasClass("active") ) {
+			setTimeout(function(){
+				$(".wrapAll").removeClass("active");
+			},500);
+			} else {
+			$(".wrapAll").addClass("active");
+		}
+		$("#hSearch").slideUp("fast");
+		$("#globalNav").slideUp("fast");
+		//$("#shNotificationListArea").slideUp("fast");
+		$("#header").css("z-index", "");
+	});
+	
+	$("#globalNavBtnText").on("click",function(){
+		$("body").toggleClass("slideMenuOpen");
+		if ( $(".wrapAll").hasClass("active") ) {
+			setTimeout(function(){
+				$(".wrapAll").removeClass("active");
+			},500);
+			} else {
+			$(".wrapAll").addClass("active");
+		}
+		$("#hSearch").slideUp("fast");
+		$("#globalNav").slideUp("fast");
+		//$("#shNotificationListArea").slideUp("fast");
+		$("#header").css("z-index", "");
+	});
+
+
+	$("#headerSearchMenu span").on("click",function(){
+		$("#hSearch").slideToggle("fast");
+		$("#headerSearch input#headerSkey").focus();
+		//$("#shNotificationListArea").slideUp("fast");
+		$("#globalNav").slideUp("fast");
+
+	});
+
+
+	$("#siteName span").on("click",function(){
+		$("#globalNav").slideToggle("fast");
+		$("#siteName span").toggleClass("active");
+		//$("#shNotificationListArea").slideUp("fast");
+		$("#hSearch").slideUp("fast");
+
+	});
+
+
+	if ($("#productQuantity").text() > 0){
+		$("#headerCartBox #productQuantity").css("display","block");
+	}
+
+	//menu
+	var menuHeight = $("#header").height();
+	var startPos = 0;
+	$(window).scroll(function(){
+
+	  var currentPos = $(this).scrollTop();
+	  if (currentPos > startPos) {
+	    if($(window).scrollTop() > 200) {
+	      $("#header").css("top", "-" + menuHeight + "px");
+	    }
+	  } else if (currentPos < 10) {
+	  	$('#header').css('top', '');
+	  	$("#header").removeClass('scroll');
+	  } else {
+	    $("#header").css("top", 0 + "px");
+	    $("#header").addClass('scroll');
+
+	  }
+	  startPos = currentPos;
+	});
+
+	//slide menu
+	$(".slideMenu ul ul").hide();
+	$(".slideMenu li h2").on('click',footerH2Accordion).next().hide();
+	$(".slideMenu li h3").on('click',footerH3Accordion).next().hide();
+
+
+});
