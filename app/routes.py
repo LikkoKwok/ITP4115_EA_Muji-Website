@@ -40,6 +40,9 @@ def index():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
+@app.route('/product')
+def product():
+    return render_template('product.html', title=_('Product'))
 
 @app.route('/explore')
 @login_required
