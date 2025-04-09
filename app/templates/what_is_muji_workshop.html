@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is MUJI? Exhibition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>What is MUJI? Exhibition</h1>
+        <img src="{{ url_for('static', filename='images/what_is_muji_workshop.jpg') }}" alt="What is MUJI? Exhibition" class="event-detail-image">
+        <p>日期：2018年11月24日（六）</p>
+        <p>地點：無印良品海港城
+            九龍尖沙咀海港城海洋中心4樓</p>
+        <p>活動簡介：在這個工作坊中，你將學習如何調配專屬的香薰香水，並帶走自己的作品。</p>
+        <a href="{{ url_for('events') }}">返回活動列表</a>
+        <p><a href="{{ url_for('workshop_submit_form') }}">現即報名</a></p>
+    </div>
+</body>
+</html>

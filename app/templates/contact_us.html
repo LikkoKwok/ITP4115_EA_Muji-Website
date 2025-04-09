@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>聯絡我們</h1>
+        <div class="breadcrumb">
+            <a href="/">首頁</a> &gt; 聯絡我們
+        </div>
+
+        <div class="contact-info">
+            <h2>顧客服務部</h2>
+            <p>電話: +852 2694 9309</p>
+            <p>辦公時間: 星期一至星期日 09:30-17:30</p>
+            <p>電郵: <a href="mailto:mujics@muji.com.hk">mujics@muji.com.hk</a></p>
+        </div>
+
+        <div class="contact-info">
+            <h2>無印良品網上商店顧客服務部</h2>
+            <p>電話: +852 2694 9309 (選擇語言後按3字)</p>
+            <p>辦公時間: 星期一至星期日 09:30-17:30</p>
+            <p>電郵: <a href="mailto:onlineshopcs@muji.com.hk">onlineshopcs@muji.com.hk</a></p>
+        </div>
+
+        <div class="feedback-form">
+            <h2>網上意見表格</h2>
+            <p>我們非常重視每位顧客的寶貴意見。我們誠邀你填妥此<a href="{{ url_for('feedback_form') }}">表格</a>，與我們分享你的看法，讓我們能夠不斷進步，提供更好的服務。謝謝。</p>
+        </div>        
+    </div>
+</body>
+</html>

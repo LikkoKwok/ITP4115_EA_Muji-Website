@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>報名表單</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form_style.css') }}">
+</head>
+<body>
+    <h1>報名表單</h1>
+    <form action="{{ url_for('handle_submit') }}" method="POST">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">電郵：</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="project">報名項目：</label>
+        <select id="project" name="project" required>
+            <option value="workshop1">香薰香水調配工作坊</option>
+            <option value="workshop2">動物拼貼畫冊工作坊</option>
+            <option value="workshop3">What is MUJI Exhibition</option>
+        </select><br><br>
+
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>

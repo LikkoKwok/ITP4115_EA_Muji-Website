@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動列表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='open_muji.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- 標題 -->
+        <h1 class="page-title">Open MUJI</h1>
+        <p class="page-description">
+            Open MUJI 為一個展示無印良品提案，與顧客交流的活動空間。
+        </p>
+        <img src="{{ url_for('static', filename='images/G8_writing.jpg') }}" alt="G8_writing" class="event-detail-image">
+
+    <div class="event-list">
+        <!-- 分類 1 -->
+        <h2 class="category-title">MUJI 無印良品</h2>
+        <div class="event">
+            <h3>無印良品 Mil Mill 喵坊展示</h3>
+            <p class="date">Feb 2025</p>
+            <img src="{{ url_for('static', filename='images/muji_mil_mil.jpg') }}" 
+                 alt="muji_mil_mil" 
+                 class="event-detail-image">
+        </div>
+
+        <div class="event">
+            <h3>無印良品 八八木書法展示</h3>
+            <p class="date">Feb 2025</p>
+            <img src="{{ url_for('static', filename='images/G8_writing.jpg') }}" 
+                 alt="G8_writing" 
+                 class="event-detail-image">
+        </div>
+
+        <div class="event">
+            <h3>無印良品 Ditto Ditto 香港主題活版印刷展覽</h3>
+            <p class="date">Nov 2025</p>
+            <img src="{{ url_for('static', filename='images/ditto.jpg') }}" 
+                 alt="ditto" 
+                 class="event-detail-image">
+        </div>
+    </div>
+</body>
+</html>
