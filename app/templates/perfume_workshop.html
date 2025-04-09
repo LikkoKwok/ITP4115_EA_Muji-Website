@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香薰香水調配工作坊</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>香薰香水調配工作坊</h1>
+        <img src="{{ url_for('static', filename='images/perfume_workshop.jpg') }}" alt="香薰香水調配工作坊" class="event-detail-image">
+        <p>日期：2018年11月24日（六）</p>
+        <p>地點：無印良品香港店</p>
+        <p>活動簡介：在這個工作坊中，你將學習如何調配專屬的香薰香水，並帶走自己的作品。</p>
+        <a href="{{ url_for('events') }}">返回活動列表</a>
+        <p><a href="{{ url_for('workshop_submit_form') }}">現即報名</a></p>
+    </div>
+</body>
+</html>

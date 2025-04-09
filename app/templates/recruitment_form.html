@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招聘表單</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='form_style.css') }}">
+</head>
+<body>
+    <h1>招聘表單</h1>
+    <form action="/submit" method="POST">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">電子郵件：</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="position">應聘職位：</label>
+        <select id="position" name="position" required>
+            <option value="">請選擇職位</option>
+            <option value="軟體工程師">軟體工程師</option>
+            <option value="售貨員">售貨員</option>
+            <option value="產品經理">產品經理</option>
+            <option value="倉務員">倉務員</option>
+            <option value="專案經理">專案經理</option>
+        </select><br><br>
+
+        <label for="experience">工作經驗：</label>
+        <textarea id="experience" name="experience" rows="4" required></textarea><br><br>
+
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>
