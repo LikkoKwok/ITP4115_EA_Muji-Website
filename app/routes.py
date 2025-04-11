@@ -193,3 +193,84 @@ def unfollow(username):
     db.session.commit()
     flash(_('You are not following %(username)s.', username=username))
     return redirect(url_for('user', username=username))
+
+#recruitment
+@app.route('/recruitment')
+def recruitment():
+    return render_template('recruitment.html')
+
+# Recruitment table
+
+@app.route('/recruitment_form')
+def recruitment_form():
+    return render_template('recruitment_form.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    name = request.form['name']
+    email = request.form['email']
+    position = request.form['position']
+    experience = request.form['experience']
+    # 這裡可以將資料儲存到資料庫或進行其他處理
+    return f"感謝 {name} 提交申請！我們會盡快與您聯繫。"
+
+@app.route('/thank-you')
+def thank_you():
+    return "Thank you for your time, we will contact you as soon as possible"
+
+# contact us
+
+@app.route('/contact-us')
+def contact_us():
+    return render_template('contact_us.html')
+
+@app.route('/feedback-form')
+def feedback_form():
+    return render_template('feedback_form.html')
+
+# events
+
+@app.route('/events')
+def events():
+    return render_template('events.html')
+
+#workshop
+
+@app.route('/perfume_workshop')
+def perfume_workshop():
+    return render_template('perfume_workshop.html')
+
+@app.route('/animal_workshop')
+def animal_workshop():
+    return render_template('animal_workshop.html')
+
+@app.route('/what_is_muji_workshop')
+def what_is_muji_workshop():
+    return render_template('what_is_muji_workshop.html')
+
+
+
+# workshop_submit_form
+
+@app.route('/workshop_submit_form')
+def workshop_submit_form():
+    return render_template('workshop_submit_form.html')
+
+@app.route('/handle_submit', methods=['POST'])
+def handle_submit():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    project = request.form.get('project')
+    # 在這裡處理表單數據，例如存儲到資料庫或發送確認郵件
+    print(f"姓名: {name}, 電郵: {email}, 報名項目: {project}")
+    return redirect(url_for('thank_you_workshop'))
+
+@app.route('/thank_you_workshop')
+def thank_you_workshop():
+    return "感謝您的報名！我們會盡快與您聯繫。"
+
+#Open muji
+
+@app.route('/open_muji')
+def open_muji():
+    return render_template('open_muji.html')

@@ -1,0 +1,55 @@
+/* 基本樣式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* 活動列表容器 */
+.event-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 活動項目 */
+.event {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 活動標題 */
+.event h3 {
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0 0 10px 0;
+}
+
+/* 活動日期 */
+.event .date {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* 分類標題 */
+.category-title {
+    font-size: 1.8rem;
+    color: #000;
+    margin: 40px 0 20px 0;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* 圖片樣式 */
+.event-detail-image {
+    width: 300px; /* 設置寬度 */
+    height: auto; /* 高度自動調整，保持比例 */
+    margin-top: 10px; /* 與上方內容的間距 */
+    border-radius: 8px; /* 圓角效果 */
+}
