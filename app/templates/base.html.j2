@@ -1,4 +1,9 @@
 {% extends 'bootstrap/base.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='base_style.css')}}">
+{% endblock %}
 {% block title %}
     {% if title %}
         {{ title }} - MUJI HK
@@ -7,8 +12,15 @@
     {% endif %}
 {% endblock %}
 {% block navbar %}
-    <nav class="navbar navbar-default">
-        <div class="container">
+    <nav class="navbar navbar-default" style="position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 999;
+    background-color: #ffffff;
+    margin-top: 0;
+    align-items: center;">
+        <div class="container" >
             <div class="navbar-header">
                 <button type="button"
                         class="navbar-toggle collapsed"
@@ -20,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}"><img scr='/workspaces/ITP4115_EA_Muji-Website/app/static/無印良品 MUJI_files/flag_hk.png'></a>
+                <a class="navbar-brand" href="{{ url_for('index') }}"><img src="/workspaces/ITP4115_EA_Muji-Website/app/static/無印良品 MUJI_files/flag_hk.png"></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">

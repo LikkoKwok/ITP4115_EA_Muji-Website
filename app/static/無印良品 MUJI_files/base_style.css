@@ -1,10 +1,10 @@
-.navbar {
+.navbar .navbar-header .navbar navbar-default .container{
     position: fixed;
     top: 0;
     width: 100%;
-    height: 100px;
+    height: 50px;
     z-index: 999;
-    background-color: #7F0019;
+    background-color: #ffffff;
     margin-top: 0;
     align-items: center;
 }
