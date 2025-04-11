@@ -1,9 +1,9 @@
 {% extends 'bootstrap/base.html' %}
 {% block title %}
     {% if title %}
-        {{ title }} - Microblog
+        {{ title }} - MUJI HK
     {% else %}
-        {{ _('Welcome to Microblog') }}
+        {{ _('Welcome to MUJI') }}
     {% endif %}
 {% endblock %}
 {% block navbar %}
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Microblog</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}"><img scr='/workspaces/ITP4115_EA_Muji-Website/app/static/無印良品 MUJI_files/flag_hk.png'></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -28,7 +28,7 @@
                         <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('explore') }}">{{ _('Explore') }}</a>
+                        <a href="{{ url_for('product') }}">{{ _('Product') }}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
