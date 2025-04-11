@@ -1,9 +1,5 @@
 {% extends 'bootstrap/base.html' %}
-{% block styles %}
-{{super()}}
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='base_style.css')}}">
-{% endblock %}
+
 {% block title %}
     {% if title %}
         {{ title }} - MUJI HK
@@ -11,15 +7,14 @@
         {{ _('Welcome to MUJI') }}
     {% endif %}
 {% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/base_style.css') }}">
+{% endblock %}
+
 {% block navbar %}
-    <nav class="navbar navbar-default" style="position: fixed;
-    top: 0;
-    width: 100%;
-    height: 50px;
-    z-index: 999;
-    background-color: #ffffff;
-    margin-top: 0;
-    align-items: center;">
+    <nav class="navbar navbar-default" id="navbar-default">
         <div class="container" >
             <div class="navbar-header">
                 <button type="button"
@@ -32,9 +27,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}"><img src="/workspaces/ITP4115_EA_Muji-Website/app/static/無印良品 MUJI_files/flag_hk.png"></a>
+                <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='無印良品 MUJI_files/muji-logo.png') }}" width="45px" height="30px" padding="10px"></a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index: 999; background-color: #ffffff;">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
@@ -43,7 +38,27 @@
                         <a href="{{ url_for('product') }}">{{ _('Product') }}</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="z-index: 999; background-color: #ffffff; border-radius: 0px;">
+                    {% if current_user.is_authenticated %}
+                        <li>
+                            <a href="{{ url_for('cart') }}">{{ _('Cart') }} ({{ cart_count }})</a>
+                        </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li>
+                            <a href="{{ url_for('admin') }}">{{ _('Admin') }}</a>
+                        </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                        <li>
+                            <a href="{{ url_for('order_history') }}">{{ _('Order History') }}</a>
+                        </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li>
+                            <a href="{{ url_for('user_management') }}">{{ _('User Management') }}</a>
+                        </li>
+                    {% endif %}
                     {% if current_user.is_anonymous %}
                         <li>
                             <a href="{{ url_for('login') }}">{{ _('Login') }}</a>
