@@ -40,6 +40,7 @@ def index():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
+#Likko's Part: Product
 @app.route('/product')
 def product():
     return render_template('product.html', title=_('Product'))
