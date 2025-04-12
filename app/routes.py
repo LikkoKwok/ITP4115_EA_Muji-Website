@@ -247,6 +247,18 @@ def animal_workshop():
 def what_is_muji_workshop():
     return render_template('what_is_muji_workshop.html')
 
+@app.route('/main_index')
+def main_index():
+    return render_template('main_index.html')
+
+@app.route('/store')
+def store_html():
+    return render_template('store.html')
+
+@app.route('/intord')
+def intord_html():
+    return render_template('intord.html')
+
 
 
 # workshop_submit_form
