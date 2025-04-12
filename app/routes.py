@@ -5,8 +5,8 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
-    ResetPasswordRequestForm, ResetPasswordForm
-from app.models import User, Post
+    ResetPasswordRequestForm, ResetPasswordForm, ProductForm
+from app.models import User, Post, Product
 from app.email import send_password_reset_email
 
 
@@ -43,7 +43,33 @@ def index():
 #Likko's Part: Product
 @app.route('/product')
 def product():
-    return render_template('product.html', title=_('Product'))
+    return render_template('product.html.j2', title=_('Product'))
+
+#Likko's Part: ProductForm
+@app.route('/employee', methods=['GET', 'POST'])
+def employee():
+    form = ProductForm()
+    if form.validate_on_submit():  # Check if the form is submitted and valid
+        # Create or update the product entry in the database
+        product = Product.query.filter_by(name=form.name.data).first()
+        if product:
+            # Update existing product
+            product.price = form.price.data
+            product.description = form.description.data
+            product.stock = form.stock.data
+        else:
+            # Add new product
+            product = Product(
+                name=form.name.data,
+                price=form.price.data,
+                description=form.description.data,
+                stock=form.stock.data
+            )
+            db.session.add(product)
+        db.session.commit()  # Save changes to the database
+        flash(_('Product entry has been updated successfully!'))
+        return redirect(url_for('employee'))
+    return render_template('employee.html.j2', title='員工專用', form=form)
 
 @app.route('/explore')
 @login_required

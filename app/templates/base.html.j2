@@ -32,43 +32,43 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index: 999; background-color: #ffffff;">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
+                        <a href="{{ url_for('index') }}" id="tabs" >{{ _('Home') }}</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('product') }}">{{ _('Product') }}</a>
+                        <a href="{{ url_for('product') }}" id="tabs">{{ _('Product') }}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="z-index: 999; background-color: #ffffff; border-radius: 0px;">
                     {% if current_user.is_authenticated %}
                         <li>
-                            <a href="{{ url_for('cart') }}">{{ _('Cart') }} ({{ cart_count }})</a>
+                            <a href="{{ url_for('cart') }}" id="tabs" >{{ _('Cart') }} ({{ cart_count }})</a>
                         </li>
                     {% endif %}
                     {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
-                            <a href="{{ url_for('admin') }}">{{ _('Admin') }}</a>
+                            <a href="{{ url_for('admin') }}" id="tabs" >{{ _('Admin') }}</a>
                         </li>
                     {% endif %}
                     {% if current_user.is_authenticated %}
                         <li>
-                            <a href="{{ url_for('order_history') }}">{{ _('Order History') }}</a>
+                            <a href="{{ url_for('order_history') }}" id="tabs" >{{ _('Order History') }}</a>
                         </li>
                     {% endif %}
                     {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
-                            <a href="{{ url_for('user_management') }}">{{ _('User Management') }}</a>
+                            <a href="{{ url_for('user_management') }}" id="tabs" >{{ _('User Management') }}</a>
                         </li>
                     {% endif %}
                     {% if current_user.is_anonymous %}
                         <li>
-                            <a href="{{ url_for('login') }}">{{ _('Login') }}</a>
+                            <a href="{{ url_for('login') }}" id="tabs" >{{ _('Login') }}</a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="{{ url_for('user', username=current_user.username) }}">{{ _('Profile') }}</a>
+                            <a href="{{ url_for('user', username=current_user.username) }}" id="tabs" >{{ _('Profile') }}</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('logout') }}">{{ _('Logout') }}</a>
+                            <a href="{{ url_for('logout') }}" id="tabs" >{{ _('Logout') }}</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -84,6 +84,7 @@
             {% endif %}
         {% endwith %}
         {# application content needs to be provided in the app_content block #}
+
         {% block app_content %}{% endblock %}
     </div>
 {% endblock %}

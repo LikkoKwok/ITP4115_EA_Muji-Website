@@ -1,4 +1,4 @@
-
+from flask import url_for
 from datetime import datetime, timedelta, timezone
 from hashlib import md5
 from app import app, db, login
@@ -90,3 +90,22 @@ class Post(db.Model):
 
     def __repr__(self) -> str:
         return f'<Post {self.body}>'
+
+# Likko's Part: Product Model
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), unique=True, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    stock = db.Column(db.Integer, nullable=False)
+    image_file = db.Column(db.String(128), nullable=True)
+    
+
+    def __repr__(self):
+        return f'<Product {self.name}>'
+    
+    def image_url(self):
+        # Returns the URL for the product image or a default image if none is set
+        if self.image_file:
+            return url_for('static', filename=f'product_images/{self.image_file}', _external=True)
+        return url_for('static', filename='default_product.png', _external=True)
