@@ -1,0 +1,47 @@
+{% extends 'base.html.j2' %}
+{% block app_content %}
+
+{% block title %}
+    {{ super() }} - 工作坊報名表單  <!-- 保留默认标题并追加内容 -->
+{% endblock %}
+
+    <div class="form-container" style="margin-top: var(--navbar-height);>
+        {# 新增副标题（可选样式类） #}
+        <div class="form-header">
+            <h1>工作坊報名表單</h1>
+            <p class="form-description">請填寫以下資訊完成報名</p>  <!-- 新增的提示文字 -->
+        </div>
+        
+        <form method="POST" action="{{ url_for('workshop_submit_form') }}" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name() }}
+                {% for error in form.name.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email() }}
+                {% for error in form.email.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.project.label }}
+                {{ form.project() }}
+                {% for error in form.project.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {{ form.submit() }}
+        </form>
+    </div>
+
+
+{% endblock %}

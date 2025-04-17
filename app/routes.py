@@ -5,8 +5,8 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
-    ResetPasswordRequestForm, ResetPasswordForm
-from app.models import User, Post
+    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm
+from app.models import User, Post, Product, WorkshopSubmission, Feedback
 from app.email import send_password_reset_email
 
 
@@ -40,9 +40,36 @@ def index():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
+#Likko's Part: Product
 @app.route('/product')
 def product():
-    return render_template('product.html', title=_('Product'))
+    return render_template('product.html.j2', title=_('Product'))
+
+#Likko's Part: ProductForm
+@app.route('/employee', methods=['GET', 'POST'])
+def employee():
+    form = ProductForm()
+    if form.validate_on_submit():  # Check if the form is submitted and valid
+        # Create or update the product entry in the database
+        product = Product.query.filter_by(name=form.name.data).first()
+        if product:
+            # Update existing product
+            product.price = form.price.data
+            product.description = form.description.data
+            product.stock = form.stock.data
+        else:
+            # Add new product
+            product = Product(
+                name=form.name.data,
+                price=form.price.data,
+                description=form.description.data,
+                stock=form.stock.data
+            )
+            db.session.add(product)
+        db.session.commit()  # Save changes to the database
+        flash(_('Product entry has been updated successfully!'))
+        return redirect(url_for('employee'))
+    return render_template('employee.html.j2', title='員工專用', form=form)
 
 @app.route('/explore')
 @login_required
@@ -196,13 +223,13 @@ def unfollow(username):
 #recruitment
 @app.route('/recruitment')
 def recruitment():
-    return render_template('recruitment.html')
+    return render_template('recruitment.html.j2')
 
-# Recruitment table
+# Recruitment_form
 
 @app.route('/recruitment_form')
 def recruitment_form():
-    return render_template('recruitment_form.html')
+    return render_template('recruitment_form.html.j2')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -213,72 +240,86 @@ def submit():
     # 這裡可以將資料儲存到資料庫或進行其他處理
     return f"感謝 {name} 提交申請！我們會盡快與您聯繫。"
 
-@app.route('/thank-you')
-def thank_you():
-    return "Thank you for your time, we will contact you as soon as possible"
-
-# contact us
+# contact us/ feedback
 
 @app.route('/contact-us')
 def contact_us():
-    return render_template('contact_us.html')
+    return render_template('contact_us.html.j2')
 
-@app.route('/feedback-form')
+@app.route('/feedback_form', methods=['GET', 'POST'])
 def feedback_form():
-    return render_template('feedback_form.html')
+        form = FeedbackForm()
+        
+        if form.validate_on_submit():
+            try:
+                feedback = Feedback(
+                    name=form.name.data,
+                    email=form.email.data,
+                    message=form.message.data
+                )
+                db.session.add(feedback)
+                db.session.commit()
+                flash('反馈已成功提交！', 'success')
+                return redirect(url_for('thank_you'))
+            except Exception as e:
+                db.session.rollback()
+                flash(f'提交失败: {str(e)}', 'danger')
+        
+        return render_template('feedback_form.html.j2', form=form)
+
 
 # events
 
 @app.route('/events')
 def events():
-    return render_template('events.html')
+    return render_template('events.html.j2')
 
 #workshop
 
 @app.route('/perfume_workshop')
 def perfume_workshop():
-    return render_template('perfume_workshop.html')
+    return render_template('perfume_workshop.html.j2')
 
 @app.route('/animal_workshop')
 def animal_workshop():
-    return render_template('animal_workshop.html')
+    return render_template('animal_workshop.html.j2')
 
 @app.route('/what_is_muji_workshop')
 def what_is_muji_workshop():
-    return render_template('what_is_muji_workshop.html')
+    return render_template('what_is_muji_workshop.html.j2')
 
 @app.route('/main_index')
 def main_index():
-    return render_template('main_index.html')
+    return render_template('main_index.html.j2')
 
 @app.route('/store')
 def store_html():
-    return render_template('store.html')
+    return render_template('store.html.j2')
 
 @app.route('/intord')
 def intord_html():
-    return render_template('intord.html')
+    return render_template('intord.html.j2')
 
 
 
 # workshop_submit_form
 
-@app.route('/workshop_submit_form')
+@app.route('/workshop_submit_form', methods=['GET', 'POST'])
 def workshop_submit_form():
-    return render_template('workshop_submit_form.html')
+    form = WorkshopForm()
+    
+    if form.validate_on_submit():
+        # 这里添加数据库操作（示例）
+        new_record = WorkshopSubmission(name=form.name.data, email=form.email.data, project=form.project.data)
+        db.session.add(new_record)
+        db.session.commit()
+        return redirect(url_for('thank_you'))
+    
+    return render_template('workshop_submit_form.html.j2', form=form)
 
-@app.route('/handle_submit', methods=['POST'])
-def handle_submit():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    project = request.form.get('project')
-    # 在這裡處理表單數據，例如存儲到資料庫或發送確認郵件
-    print(f"姓名: {name}, 電郵: {email}, 報名項目: {project}")
-    return redirect(url_for('thank_you_workshop'))
-
-@app.route('/thank_you_workshop')
-def thank_you_workshop():
-    return "感謝您的報名！我們會盡快與您聯繫。"
+@app.route('/thank_you')
+def thank_you():
+    return "<h1>報名成功！</h1>"
 
 #Open muji
 
