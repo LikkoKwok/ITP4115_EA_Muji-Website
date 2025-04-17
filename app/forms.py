@@ -7,27 +7,25 @@ from app.models import User
 
 # Likko's Part: ProductForm for Product Entries
 class ProductForm(FlaskForm):
-    product_id = StringField('Product ID', validators=[DataRequired()])
-    product_name = StringField('Product Name', validators=[DataRequired()])
-    product_price = StringField('Product Price', validators=[DataRequired()])
-    product_description = TextAreaField('Product Description', validators=[Length(min=0, max=140)])
-    product_stock = StringField('Product Stock', validators=[DataRequired()])
-    product_image = FileField('Product Image')
+    id = StringField('Product ID', validators=[DataRequired()])
+    name = StringField('Product Name', validators=[DataRequired()])
+    price = StringField('Product Price', validators=[DataRequired()])
+    description = TextAreaField('Product Description', validators=[Length(min=0, max=140)])
+    stock = StringField('Product Stock', validators=[DataRequired()])
+    image = FileField('Product Image')
     submit = SubmitField('Update Product')
 
-    def validate_product_name(self, product_name):
-        product = User.query.filter_by(username=product_name.data).first()
+    def validate_product_name(self, name):
+        product = User.query.filter_by(name=name.data).first()
         if product is not None:
             raise ValidationError('Please use a different product name.')
-    def validate_product_price(self, product_price):
-        if not product_price.data.isdigit():
+    def validate_product_price(self, price):
+        if not price.data.isdigit():
             raise ValidationError('Please enter a valid price.')
-        if float(product_price.data) <= 0:
+        if float(price.data) <= 0:
             raise ValidationError('Price must be greater than zero.')
-    def validate_product_image(self, product_image):
-        #print(product_image)
-        #print(product_image.data.filename)
-        if not product_image.data.filename.endswith('.jpg', '.jpeg', '.png'):
+    def validate_product_image(self, image):
+        if not image.data.filename.endswith('.jpg', '.jpeg', '.png'):
             raise ValidationError('Only file formats .jpg, .jpeg, or .png are allowed.')
 
 ##########################################

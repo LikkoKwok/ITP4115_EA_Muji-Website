@@ -8,6 +8,9 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
     ResetPasswordRequestForm, ResetPasswordForm, ProductForm
 from app.models import User, Post, Product
 from app.email import send_password_reset_email
+from flask_uploads import IMAGES, UploadSet
+from werkzeug.utils import secure_filename
+
 
 
 @app.before_request
@@ -43,9 +46,9 @@ def index():
 #Likko's Part: Product
 @app.route('/product')
 def product():
-    return render_template('product.html.j2', title=_('Product'))
+    return render_template('product.html.j2', title='Product')
 
-#Likko's Part: ProductForm
+#Likko's Part: ProductForm (employee)
 @app.route('/employee', methods=['GET', 'POST'])
 def employee():
     form = ProductForm()
@@ -57,19 +60,54 @@ def employee():
             product.price = form.price.data
             product.description = form.description.data
             product.stock = form.stock.data
+            product.image = form.image.data.filename if form.image.data else product.image
         else:
             # Add new product
             product = Product(
                 name=form.name.data,
                 price=form.price.data,
                 description=form.description.data,
-                stock=form.stock.data
+                stock=form.stock.data,
+                image = form.image.data.filename if form.image.data else None
             )
-            db.session.add(product)
+            # Save the uploaded image
+            if form.image.data:
+                filename = secure_filename(form.image.data.filename)
+                form.image.data.save(f'app/static/product_images/{filename}')
+                product.image = filename
+        # Save the product to the database
+        db.session.add(product)
         db.session.commit()  # Save changes to the database
-        flash(_('Product entry has been updated successfully!'))
+        flash('Product entry has been updated successfully!')
         return redirect(url_for('employee'))
     return render_template('employee.html.j2', title='員工專用', form=form)
+
+#Likko's Reference for pure file upload
+@app.route("/upload", methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST' and 'photo' in request.files:
+        photos = UploadSet("photos", IMAGES)
+        photos.save(request.files['photo'])
+        flash("Photo saved successfully.")
+        return render_template('upload.html.j2')
+    return render_template('upload.html.j2')
+
+#Likko's Part: Product Search
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('query', '').strip()  # Get the search query from the URL
+    products = []
+    if query:
+        # Search by ID if the query is numeric
+        if query.isdigit():
+            products = Product.query.filter_by(id=int(query)).all()
+        else:
+            # Search by name (case-insensitive)
+            products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
+    return render_template('search.html.j2', title=_('Search Products'), products=products, query=query)
+
+
+
 
 @app.route('/explore')
 @login_required
@@ -101,7 +139,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html.j2', title=_('Sign In'), form=form)
+    return render_template('login.html.j2', title='Sign In', form=form)
 
 
 @app.route('/logout')
@@ -122,7 +160,7 @@ def register():
         db.session.commit()
         flash(_('Congratulations, you are now a registered user!'))
         return redirect(url_for('login'))
-    return render_template('register.html.j2', title=_('Register'), form=form)
+    return render_template('register.html.j2', title='Register', form=form)
 
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
@@ -138,7 +176,7 @@ def reset_password_request():
             _('Check your email for the instructions to reset your password'))
         return redirect(url_for('login'))
     return render_template('reset_password_request.html.j2',
-                           title=_('Reset Password'), form=form)
+                           title='Reset Password', form=form)
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -185,8 +223,7 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html.j2', title=_('Edit Profile'),
-                           form=form)
+    return render_template('edit_profile.html.j2', title='Edit Profile',form=form)
 
 
 @app.route('/follow/<username>')
@@ -201,7 +238,7 @@ def follow(username):
         return redirect(url_for('user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash(_('You are following %(username)s!', username=username))
+    flash('You are following %(username)s!', username=username)
     return redirect(url_for('user', username=username))
 
 
