@@ -10,10 +10,16 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel
+from flask_uploads import IMAGES, UploadSet, configure_uploads
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+photos = UploadSet("photos", IMAGES)
+app.config["UPLOADED_PHOTOS_DEST"] = "app/static/product_images"
+app.config["SECRET_KEY"] = os.urandom(24)
+configure_uploads(app, photos)
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager()

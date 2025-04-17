@@ -1,13 +1,14 @@
 {% extends "base.html.j2" %}
 {% import 'bootstrap/wtf.html' as wtf %}
-
 {% block app_content %}
-    <script>
-    alert('Please return if you are not MUJI employee');
-    </script>
     <div class="row">
-        <div class="col-md-4">{{ wtf.quick_form(form) }}</div>        
+    <div class="col-md-4" style="top: 50px"><h1 style="color:#7f0019">MUJI 員工專用</h1>{{ wtf.quick_form(form) }}</div>        
     </div>
-    
     <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div>
+    <h3><a href="{{ url_for('product') }}" target="_self" style="color:#7f0019">Back</a></h3>
+    </div>
 {% endblock %}
