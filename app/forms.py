@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
-    TextAreaField, FileField #import additional FileField for product image
+    TextAreaField, SelectField, FileField #import additional FileField for product image
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User
@@ -30,6 +30,57 @@ class ProductForm(FlaskForm):
 
 ##########################################
 
+# Workshop_submit_form
+
+class WorkshopForm(FlaskForm):
+    name = StringField('姓名', validators=[DataRequired(message="※ 請填寫姓名"),
+    ], render_kw={"placeholder": "請輸入完整姓名"})
+
+    email = StringField('電郵', validators=[DataRequired(message="※ 請填寫郵箱"),
+        Email(message="※ 郵箱格式不正確")
+    ], render_kw={"placeholder": "example@domain.com"})
+
+    project = SelectField('報名項目', validators=[DataRequired(message="※ 請選擇工作坊")
+    ], choices=[
+        ('workshop1', '香薰香水調配工作坊'),
+        ('workshop2', '動物拼貼畫冊工作坊'),
+        ('workshop3', 'What is MUJI Exhibition')
+    ], render_kw={"class": "dropdown"})
+
+    submit = SubmitField('提交', render_kw={"class": "submit-btn"})
+
+# feedback_form
+
+class FeedbackForm(FlaskForm):
+    name = StringField('姓名', validators=[
+        DataRequired(message="必须填写姓名"),
+        Length(max=80)
+    ], render_kw={
+        "placeholder": "请输入全名",
+        "autocomplete": "name"
+    })
+    
+    email = StringField('电子邮箱', validators=[
+        DataRequired(message="必须填写邮箱"),
+        Email(message="无效的邮箱格式"),
+        Length(max=120)
+    ], render_kw={
+        "placeholder": "example@domain.com",
+        "autocomplete": "email"
+    })
+    
+    message = TextAreaField('反馈意见', validators=[
+        DataRequired(message="必须填写内容"),
+        Length(min=10, max=500)
+    ], render_kw={
+        "placeholder": "请输入至少10个字符",
+        "autocomplete": "off",
+        "rows": 5
+    })
+    
+    submit = SubmitField('提交反馈')
+
+############################################
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])

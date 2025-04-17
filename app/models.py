@@ -106,6 +106,29 @@ class Product(db.Model):
     
     def image_url(self):
         # Returns the URL for the product image or a default image if none is set
+
         if self.image:
             return url_for('static', filename=f'product_images/{self.image}', _external=True)
         return url_for('static', filename='default_product.png', _external=True)
+
+    
+# Workshop_submit_form
+class WorkshopSubmission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    project = db.Column(db.String(50), nullable=False)
+
+# Feedback_form
+class Feedback(db.Model):
+    __tablename__ = 'feedbacks'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    def __repr__(self):
+        return f'<Feedback {self.email}>'
+

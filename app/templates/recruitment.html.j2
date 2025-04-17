@@ -1,0 +1,16 @@
+{% extends 'base.html.j2' %}
+{% block app_content %}
+    
+    <div class="recruitment-container" style="margin-top: var(--navbar-height);">
+        <p>自1980年誕生的無印良品，是一個沒有名字但以品質優良為原則的生活美學專門店，一直以簡約的理念為品牌哲學，發展至今銷售產品由衣服鞋襪、家居用品以至食品等，種類達七千多種，照顧日常所需。</p>
+        <P>如果你也喜愛和認同MUJI無印良品，歡迎加入成為我們的一份子，一同傳達無印良品的舒適生活理念。</P>
+        <h1>歡迎加入無印良品大家庭！</h1>
+        <div class="recruitment-image">
+            <img src="{{ url_for('static', filename='images/Join_us.jpg') }}" 
+                 alt="MUJI團隊工作場景" 
+                 class="responsive-image">
+        </div>
+            <a href="{{ url_for('recruitment_form') }}" class="enlarge-text" style="font-size: 1.8rem; font-weight: 500;">店舖職位空缺</a>   
+    </div>
+
+{% endblock %}
