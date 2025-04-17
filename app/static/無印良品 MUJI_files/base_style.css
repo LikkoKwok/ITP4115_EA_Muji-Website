@@ -13,3 +13,9 @@
 #tabs:hover {
     color: #7f0019;
 }
+
+.table img {
+    max-width: 100px;
+    height: auto;
+}
+

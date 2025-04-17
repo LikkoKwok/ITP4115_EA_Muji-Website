@@ -5,7 +5,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User
 
-# Likko's Part: ProductForm for Products
+# Likko's Part: ProductForm for Product Entries
 class ProductForm(FlaskForm):
     product_id = StringField('Product ID', validators=[DataRequired()])
     product_name = StringField('Product Name', validators=[DataRequired()])
@@ -13,7 +13,7 @@ class ProductForm(FlaskForm):
     product_description = TextAreaField('Product Description', validators=[Length(min=0, max=140)])
     product_stock = StringField('Product Stock', validators=[DataRequired()])
     product_image = FileField('Product Image')
-    submit = SubmitField('Submit')
+    submit = SubmitField('Update Product')
 
     def validate_product_name(self, product_name):
         product = User.query.filter_by(username=product_name.data).first()
@@ -25,7 +25,9 @@ class ProductForm(FlaskForm):
         if float(product_price.data) <= 0:
             raise ValidationError('Price must be greater than zero.')
     def validate_product_image(self, product_image):
-        if not product_image.data.endswith('.jpg', '.jpeg', '.png'):
+        #print(product_image)
+        #print(product_image.data.filename)
+        if not product_image.data.filename.endswith('.jpg', '.jpeg', '.png'):
             raise ValidationError('Only file formats .jpg, .jpeg, or .png are allowed.')
 
 ##########################################
