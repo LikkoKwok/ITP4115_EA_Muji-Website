@@ -1,0 +1,82 @@
+/* 通用活動頁面樣式 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+}
+
+.event-detail-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #5e5e5e;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+a {
+    display: inline-block;
+    margin: 1rem 0;
+    text-decoration: none;
+    color: #5e5e5e;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #333;
+}
+
+/* 報名按鈕樣式 */
+a[href*="submit_form"] {
+    background-color: #5e5e5e;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    margin-top: 2rem;
+    font-weight: 400;
+    transition: background-color 0.3s ease;
+}
+
+a[href*="submit_form"]:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* 返回連結樣式 */
+a[href*="events"] {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .event-detail-image {
+        max-height: 300px;
+    }
+}
