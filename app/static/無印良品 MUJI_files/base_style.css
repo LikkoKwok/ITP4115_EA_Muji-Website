@@ -19,9 +19,3 @@
     max-width: 100px;
     height: auto;
 }
-
-.form-container {
-    margin-top: 80px;  /* 根据导航栏高度调整 */
-    padding-top: 30px; /* 可选：增加内部上间距 */
-}
-
