@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活動列表</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='open_muji.css') }}">
-</head>
-<body>
+{% extends 'base.html.j2' %}
+{% block title %}展覽列表 - MUJI HK{% endblock %}
+{% block app_content %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='open_muji.css') }}">
+{% endblock %}
+
     <div class="container">
+        <div class="breadcrumb">
+            <a href="/">首頁</a> &gt; 展覽列表
         <!-- 標題 -->
         <h1 class="page-title">Open MUJI</h1>
         <p class="page-description">
@@ -42,5 +44,5 @@
                  class="event-detail-image">
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}
