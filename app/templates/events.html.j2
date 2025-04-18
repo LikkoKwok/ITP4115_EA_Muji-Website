@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>店內活動</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends 'base.html.j2' %}
+{% block title %}活動 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='events.css') }}">
+{% endblock %}
+
     <div class="container">
-        <h1>店內活動</h1>
+        <div class="breadcrumb">
+            <a href="/">首頁</a> &gt; 活動
+        </div>
 
         <div class="event">
             <h2>香薰香水調配工作坊</h2>
@@ -34,5 +37,5 @@
             <p>日期：2025年8月11日（六）</p>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}

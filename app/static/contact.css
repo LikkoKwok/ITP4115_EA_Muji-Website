@@ -1,0 +1,91 @@
+/* contact.css - 專屬樣式表 */
+:root {
+    --muji-beige: #f5f5f0;
+    --muji-red: #e03a3a;
+    --text-dark: #333;
+    --text-light: #777;
+  }
+  
+  /* 基礎容器樣式 */
+  .container.contact-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  /* 麵包屑導航 */
+  .contact-container .breadcrumb {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+  }
+  
+  .contact-container .breadcrumb a {
+    color: var(--muji-red);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  
+  .contact-container .breadcrumb a:hover {
+    opacity: 0.8;
+  }
+  
+  /* 聯絡資訊區塊 */
+  .contact-info {
+    background: var(--muji-beige);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--muji-red);
+  }
+  
+  .contact-info h2 {
+    color: var(--muji-red);
+    margin-top: 0;
+    font-weight: 500;
+  }
+  
+  .contact-info p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  
+  .contact-info a {
+    color: var(--text-dark);
+    text-decoration: underline;
+  }
+  
+  /* 意見表單區塊 */
+  .feedback-form {
+    background: white;
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .feedback-form h2 {
+    color: var(--text-dark);
+    margin-top: 0;
+  }
+  
+  .feedback-form a {
+    color: var(--muji-red);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
+  
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .container.contact-container {
+      padding: 0 1rem;
+      margin: 1rem auto;
+    }
+    
+    .contact-info, 
+    .feedback-form {
+      padding: 1rem;
+    }
+  }
+  
