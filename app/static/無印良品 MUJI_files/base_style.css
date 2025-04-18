@@ -14,6 +14,12 @@
     color: #7f0019;
 }
 
+
+.table img {
+    max-width: 100px;
+    height: auto;
+}
+
 .recruitment-container {
     margin-top: var(--navbar-height);
     padding: 200px;
@@ -23,3 +29,4 @@
     margin-top: 80px;  /* 根据导航栏高度调整 */
     padding-top: 30px; /* 可选：增加内部上间距 */
 }
+

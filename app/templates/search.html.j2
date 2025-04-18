@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+
+{% block app_content %}
+    <h1>{{ _('Search Products') }}</h1>
+    <form method="get" action="{{ url_for('search') }}" class="form-inline mb-4">
+        <input type="text" name="query" class="form-control" placeholder="{{ _('Search by Name or ID') }}" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">{{ _('Search') }}</button>
+    </form>
+
+    {% if products %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>{{ _('ID') }}</th>
+                    <th>{{ _('Name') }}</th>
+                    <th>{{ _('Price') }}</th>
+                    <th>{{ _('Stock') }}</th>
+                    <th>{{ _('Description') }}</th>
+                    <th>{{ _('Image') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>
+                            {% if product.image_file %}
+                                <img src="{{ url_for('static', filename='product_images/' + product.image_file) }}" alt="{{ product.name }}" class="img-thumbnail" style="width: 100px; height: auto;">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='default_product.png') }}" alt="{{ _('Default Image') }}" class="img-thumbnail" style="width: 100px; height: auto;">
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{{ _('No products found.') }}</p>
+    {% endif %}
+{% endblock %}
