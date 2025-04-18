@@ -91,7 +91,7 @@ class Post(db.Model):
     def __repr__(self) -> str:
         return f'<Post {self.body}>'
 
-# Likko's Part: Product Model
+# Likko - Product Model
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True, nullable=False)
@@ -110,6 +110,19 @@ class Product(db.Model):
         if self.image:
             return url_for('static', filename=f'product_images/{self.image}', _external=True)
         return url_for('static', filename='default_product.png', _external=True)
+    
+# Likko - Return Table
+class Return(db.Model):
+    username = db.Column(db.String(20), primary_key=True)
+    product_id = db.Column(db.Integer, nullable=False)
+    receipt_no = db.Column(db.Integer, nullable=False)
+    reason = db.Column(db.Text, nullable=True)
+    policy = db.Column(db.String(20), default='換貨')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    # product = db.relationship('Product', backref='returns')
+
+    def __repr__(self):
+        return f'<Return {self.username} - {self.product_id}>'
 
     
 # Workshop_submit_form

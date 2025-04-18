@@ -5,7 +5,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User
 
-# Likko's Part: ProductForm for Product Entries
+# Likko - ProductForm
 class ProductForm(FlaskForm):
     id = StringField('Product ID', validators=[DataRequired()])
     name = StringField('Product Name', validators=[DataRequired()])
@@ -29,6 +29,26 @@ class ProductForm(FlaskForm):
             raise ValidationError('Only file formats .jpg, .jpeg, or .png are allowed.')
 
 ##########################################
+
+# Likko - ReturnForm
+class ReturnForm(FlaskForm):
+    username = StringField('用戶名稱', validators=[DataRequired()])
+    product_id = StringField('商品編號', validators=[DataRequired()])
+    receipt_no = StringField('購買收據號碼', validators=[DataRequired()])
+    reason = TextAreaField('退款原因 (只適用於退款)', validators=[DataRequired()])
+    policy = SelectField('所需之退/換貨服務', choices=[('換貨', '換貨'), ('退款及退貨', '退款及退貨'), ('退款(無須退貨)', '退款(無須退貨)')])
+    submit = SubmitField('提交申請')
+
+    # def validate_product_id(self, product_id):
+    #     product = User.query.filter_by(id=product_id.data).first()
+    #     if product is None:
+    #         raise ValidationError('Invalid Product ID.')
+    # def validate_username(self, username):
+    #     user = User.query.filter_by(username=username.data).first()
+    #     if user is None:
+    #         raise ValidationError('Invalid Username.')
+
+# Workshop_submit_form
 
 # Workshop_submit_form
 
