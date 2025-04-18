@@ -362,4 +362,4 @@ def thank_you():
 
 @app.route('/open_muji')
 def open_muji():
-    return render_template('open_muji.html')
+    return render_template('open_muji.html.j2')
