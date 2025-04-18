@@ -114,10 +114,15 @@ class Product(db.Model):
     
 # Workshop_submit_form
 class WorkshopSubmission(db.Model):
+    __tablename__ ='workshop_submission'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     project = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        return f'<Submission {self.email}>'
 
 # Feedback_form
 class Feedback(db.Model):

@@ -297,12 +297,16 @@ def feedback_form():
                 db.session.add(feedback)
                 db.session.commit()
                 flash('反馈已成功提交！', 'success')
-                return redirect(url_for('thank_you'))
+                return redirect(url_for('feedback_thankyou'))
             except Exception as e:
                 db.session.rollback()
                 flash(f'提交失败: {str(e)}', 'danger')
         
         return render_template('feedback_form.html.j2', form=form)
+
+@app.route('/feedback/thankyou')
+def feedback_thankyou():
+    return render_template('feedback_thankyou.html.j2')
 
 
 # events
@@ -350,13 +354,13 @@ def workshop_submit_form():
         new_record = WorkshopSubmission(name=form.name.data, email=form.email.data, project=form.project.data)
         db.session.add(new_record)
         db.session.commit()
-        return redirect(url_for('thank_you'))
+        return redirect(url_for('workshop_thankyou'))
     
     return render_template('workshop_submit_form.html.j2', form=form)
 
-@app.route('/thank_you')
-def thank_you():
-    return "<h1>報名成功！</h1>"
+@app.route('/workshop_thankyou')
+def workshop_thankyou():
+    return render_template('workshop_thankyou.html.j2')
 
 #Open muji
 
