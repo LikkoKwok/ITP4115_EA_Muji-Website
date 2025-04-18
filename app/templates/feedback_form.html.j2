@@ -1,7 +1,8 @@
-{% extends "base.html.j2" %}
-{% block content %}
+{% extends 'base.html.j2' %}
+{% block title %}網上意見表格 - MUJI HK{% endblock %}
+{% block app_content %}
+
     <div class="container mt-5">
-        <h2 class="mb-4">意见反馈表</h2>
         
         <!-- 闪存消息显示 -->
         {% with messages = get_flashed_messages(with_categories=true) %}

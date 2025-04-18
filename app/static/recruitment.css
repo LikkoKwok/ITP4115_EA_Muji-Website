@@ -1,38 +1,60 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* 基礎間距與對齊 */
+.recruitment-container {
+    max-width: 1200px;
+    margin: calc(var(--navbar-height) + 2rem) auto 0;
+    padding: 0 2rem;
 }
-h1 {
+
+.brand-intro p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+/* 標題樣式 */
+.recruitment-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin: 3rem 0 2rem;
     color: #333;
+    font-weight: 300; /* MUJI 風格細體字 */
 }
-form {
-    max-width: 400px;
-    margin: 0 auto;
+
+/* 圖片容器 */
+.recruitment-image {
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 極淺陰影增加層次 */
 }
-label {
-    display: block;
-    margin-top: 10px;
-}
-input, select, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-}
-button {
-    background-color: #4CAF50;
+
+/* 按鈕設計 */
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: #333;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 0; /* MUJI 無圓角風格 */
+    transition: background-color 0.3s;
 }
-button:hover {
-    background-color: #45a049;
-}
-a {
-    color: #007BFF;
+.cta-button:hover {
+    background-color: #555;
     text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
+
+@media (max-width: 768px) {
+    .recruitment-container {
+        padding: 0 1rem;
+        margin-top: calc(var(--navbar-height) + 1rem);
+    }
+    .recruitment-title {
+        font-size: 1.8rem;
+        margin: 2rem 0;
+    }
+    .cta-button {
+        width: 100%;
+        padding: 1rem;
+    }
 }
+
