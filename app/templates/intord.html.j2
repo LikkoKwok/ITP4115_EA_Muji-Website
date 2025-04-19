@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>向下滚动渐变</title>
+    <style>
+        :root {
+            --muji-beige: #f5f3e7;
+            --muji-brown: #faf6f6;
+        } 
+
+        /* 基础容器 */
+        .scroll-container {
+            height: 200vh;
+            position: relative;
+        }
+
+        /* 统一图层设置 */
+        .layer {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+        } 
+
+        /* 首屏初始可见 */
+        .first-screen {
+            background-image: 
+            url("../static/images/work.jpg");
+            z-index: 2;
+        }
+
+        /* 次屏初始隐藏 */
+        .second-screen {
+            background-image: 
+                linear-gradient(
+                 rgba(0, 0, 0, 0.4),
+                 rgba(0, 0, 0, 0.4) 120%
+            ),
+            url("../static/images/work.jpg");
+            opacity: 0;
+            z-index: 1;
+            background-blend-mode: soft-light;
+            background-size: cover;
+            background-position: center 40%;
+            background-attachment: local;  /* 滚动时产生微妙视差 */
+        }
+
+        /* 文字容器 */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 800px;
+            padding: 2rem;
+            color: var(--muji-brown);
+            will-change: transform;
+        }
+
+        /* 文字样式 */
+        .main-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(110, 76, 52, 0.1);
+        }
+        .paragraph {
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            text-indent: 2em;  /* 首行缩进2字符 */
+            text-align: justify;  /* 两端对齐 */
+            hyphens: auto;  /* 自动断字 */
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <!-- 首屏在上 -->
+        <div class="layer first-screen">
+            <div class="content">
+                <div align="center"></div>
+                <a href="main_index"><img src="{{ url_for('static', filename='images/muji-logo.png') }}" alt="MUJI Logo"></a>
+                <h1 class="main-title">舒適感、從何而來</h1>
+            </div>
+        </div>
+
+        <!-- 次屏在下 -->
+        <div class="layer second-screen">
+            <div class="content">
+                <article>
+                <p class="paragraph">  
+                    人，是喜歡清潔的。並非是將物品或環境整理到一塵不染。仔細觀察的話會發現，所謂的清潔，是為了讓人與自然取得舒適平衡而進行的活動。
+                </p>
+                <p class="paragraph">
+                    自然界中，會將環境配合自身需求做調整，由此而構築出城市空間的動物，唯有人類。因此相對於自然，人所創造出來的環境稱為「人工」。人工是為了讓人過得更舒適，但是在塑膠及水泥等素材過分使用而侵蝕自然之後，人類又回頭開始盼望能回歸自然。然而，若放任自然不做約束，則塵埃與落葉將會堆積如山，草木也會恣意奔放生長。所以，適度接受自然，適度加入人工，就是身為人類的我們一直以來的生活模式。
+                </p>
+                <p class="paragraph">
+                    建造房屋及庭院時，過分突顯人工，就會背離自然。清潔的時候，也許可以留下幾片落葉，讓草木自由生長而不過度修剪。就如同海浪沖刷後留下的沙灘波紋一般，探究尋找人與自然在共生共存中所平衡的「適度舒適感」，才是「清潔」的真諦。
+                </p>
+                <p class="paragraph">
+                    當新型冠狀病毒(COVID-19)尚未席捲世界之前，在2019年，我們拍攝了世界各地的清潔場景。我們認為，看似普遍的日常清潔活動中，或許潛藏著超越文明與文化的人類本質。如今，當世界因新型冠狀病毒而停擺，我們重新觀看這些照片與影像，不禁懷念起那些日常的美好。放眼未來，無論科技如何演進，人類始終是生物。只要我們側耳傾聽，就會發現那存在於身體深處的原始律動。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lastScroll = 0;
+        const firstLayer = document.querySelector('.first-screen');
+        const secondLayer = document.querySelector('.second-screen');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            const viewportHeight = window.innerHeight;
+
+            // 计算进度比例 (0到1)
+            const progress = Math.min(currentScroll / viewportHeight, 1);
+
+            // 动态透明度控制
+            firstLayer.style.opacity = 1 - progress;
+            secondLayer.style.opacity = progress;
+
+            // 视差移动效果
+            firstLayer.querySelector('.content').style.transform = 
+                `translate(-50%, ${-50 + progress * 30}%)`;
+            secondLayer.querySelector('.content').style.transform = 
+                `translate(-50%, ${-50 - (1 - progress) * 30}%)`;
+        });
+    </script>
+</body>
+</html>

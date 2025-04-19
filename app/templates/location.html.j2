@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無印良品分店選擇</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .branch-list {
+            margin-top: 20px;
+        }
+        .branch-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>無印良品分店選擇</h1>
+        <form id="branchForm">
+            {{ form.csrf_token }}
+            <div>
+                <label for="region">選擇地區：</label>
+                {{ form.region(id="region") }}
+            </div>
+            <button type="button" id="showBranches">顯示分店</button>
+        </form>
+        <div id="branches" class="branch-list"></div>
+    </div>
+
+    <script>
+        class BranchDatabase {
+            constructor() {
+                this.branches = [
+                    { id: 1, name: "新界店 - 荃灣廣場", region: "new_territories" },
+                    { id: 2, name: "新界店 - 沙田新城市廣場", region: "new_territories" },
+                    { id: 3, name: "九龍店 - 又一城", region: "kowloon" },
+                    { id: 4, name: "九龍店 - 旺角朗豪坊", region: "kowloon" },
+                    { id: 5, name: "香港島店 - 銅鑼灣時代廣場", region: "hong_kong_island" },
+                    { id: 6, name: "香港島店 - 中環IFC", region: "hong_kong_island" }
+                ];
+            }
+
+            getBranchesByRegion(region) {
+                return this.branches.filter(branch => branch.region === region);
+            }
+        }
+
+        const database = new BranchDatabase();
+
+        const regionSelect = document.getElementById("region");
+        const showBranchesButton = document.getElementById("showBranches");
+        const branchesContainer = document.getElementById("branches");
+
+        function displayBranches(region) {
+            branchesContainer.innerHTML = "";
+
+            if (!region) {
+                branchesContainer.innerHTML = "<p>請選擇一個地區。</p>";
+                return;
+            }
+
+            const branches = database.getBranchesByRegion(region);
+
+            if (branches.length === 0) {
+                branchesContainer.innerHTML = "<p>該地區暫無分店。</p>";
+                return;
+            }
+
+            branches.forEach(branch => {
+                const branchItem = document.createElement("div");
+                branchItem.className = "branch-item";
+                branchItem.textContent = branch.name;
+                branchesContainer.appendChild(branchItem);
+            });
+        }
+
+        showBranchesButton.addEventListener("click", () => {
+            const selectedRegion = regionSelect.value;
+            displayBranches(selectedRegion);
+        });
+    </script>
+</body>
+</html>

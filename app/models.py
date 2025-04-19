@@ -1,7 +1,11 @@
 from flask import url_for
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta, timezone
 from hashlib import md5
 from app import app, db, login
+from flask_wtf import FlaskForm
+from wtforms import SelectField
+from wtforms.validators import DataRequired
 import jwt
 
 from flask_login import UserMixin
@@ -132,3 +136,7 @@ class Feedback(db.Model):
     def __repr__(self):
         return f'<Feedback {self.email}>'
 
+class Branch(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    region = db.Column(db.String(50), nullable=False)

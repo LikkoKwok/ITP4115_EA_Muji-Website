@@ -137,3 +137,11 @@ class EditProfileForm(FlaskForm):
 class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class RegionForm(FlaskForm):
+    region = SelectField('選擇區域', choices=[  
+        ('', '請選擇'),
+        ('new_territories', '新界'),
+        ('kowloon', '九龍'),
+        ('hong_kong_island', '香港島')
+    ], validators=[DataRequired()])
