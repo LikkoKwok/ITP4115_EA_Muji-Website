@@ -1,8 +1,8 @@
 :root {
-    --muji-beige: #f5f5f0;    /* 品牌米白 */
-    --muji-dark: #333333;     /* 主文字色 */
-    --muji-gray: #999999;     /* 次要文字 */
-    --muji-border: #e0e0e0;   /* 邊框色 */
+    --muji-beige: #f5f5f0;
+    --muji-red: #e03a3a;
+    --text-dark: #333;
+    --text-light: #777;
     --muji-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 柔和陰影 */
   }
   
