@@ -1,0 +1,39 @@
+{% extends 'base.html.j2' %}
+{% block title %}職位申請表格遞交成功 - MUJI HK{% endblock %}
+{% block app_content %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='feedback_thankyou.css') }}">
+{% endblock %}
+
+    <div class="thank-you-container">
+        <!-- 加入MUJI風格的勾選圖標 -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#5e5e5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        
+        <h1 class="thank-you-title">職位申請表格遞交成功！</h1>
+        <p id="countdown">3 秒後將自動跳轉回上一頁面...</p>
+    </div>
+
+    <style>
+        /* 這裡放入上方CSS樣式 */
+    </style>
+
+    <script>
+        setTimeout(() => window.location.href = "{{ url_for('recruitment') }}", 3000);
+        
+        // 改進的倒計時邏輯
+        let seconds = 3;
+        const countdownElement = document.getElementById("countdown");
+        const updateCountdown = () => {
+            seconds--;
+            const targetPage = "上一頁面"; // 可替換為動態變量
+            countdownElement.textContent = `${seconds} 秒後將自動跳轉至${targetPage}...`;
+            if (seconds <= 0) clearInterval(timer);
+        };
+        const timer = setInterval(updateCountdown, 1000);
+    </script>
+{% endblock %}

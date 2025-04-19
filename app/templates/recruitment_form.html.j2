@@ -1,34 +1,62 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>招聘表單</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='form_style.css') }}">
-</head>
-<body>
-    <h1>招聘表單</h1>
-    <form action="/submit" method="POST">
-        <label for="name">姓名：</label>
-        <input type="text" id="name" name="name" required><br><br>
+{% extends 'base.html.j2' %}
+{% block title %}無印良品人才招募 - MUJI HK{% endblock %}
+{% block app_content %}
 
-        <label for="email">電子郵件：</label>
-        <input type="email" id="email" name="email" required><br><br>
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='recruitment_form.css') }}">
+{% endblock %}
 
-        <label for="position">應聘職位：</label>
-        <select id="position" name="position" required>
-            <option value="">請選擇職位</option>
-            <option value="軟體工程師">軟體工程師</option>
-            <option value="售貨員">售貨員</option>
-            <option value="產品經理">產品經理</option>
-            <option value="倉務員">倉務員</option>
-            <option value="專案經理">專案經理</option>
-        </select><br><br>
+    <div class="muji-form-container">
+        <h1>無印良品人才招募</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name(class="muji-input") }}
+                {% for error in form.name.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email(class="muji-input") }}
+                {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
 
-        <label for="experience">工作經驗：</label>
-        <textarea id="experience" name="experience" rows="4" required></textarea><br><br>
+            <div class="form-group">
+                {{ form.position.label }}
+                {{ form.position(class="muji-input") }}
+                {% for error in form.position.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
 
-        <button type="submit">提交</button>
-    </form>
-</body>
-</html>
+            <div class="form-group">
+                {{ form.experience.label }}
+                {{ form.experience(class="muji-input") }}
+                {% for error in form.experience.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- 其他表單字段同理... -->
+            
+            <button type="submit" class="muji-submit-btn">提交申請</button>
+        </form>
+    </div>
+
+{% endblock %}

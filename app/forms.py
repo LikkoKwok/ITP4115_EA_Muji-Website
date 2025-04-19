@@ -80,6 +80,34 @@ class FeedbackForm(FlaskForm):
     
     submit = SubmitField('提交反馈')
 
+# Recruitment_form
+class RecruitmentForm(FlaskForm):
+    name = StringField('姓名', validators=[
+        DataRequired(message="請輸入姓名"),
+        Length(max=50, message="姓名長度過長")
+    ])
+    
+    email = StringField('電子郵件', validators=[
+        DataRequired(message="請輸入電子郵件"),
+        Email(message="無效的電子郵件格式"),
+        Length(max=120)
+    ])
+    
+    position = SelectField('應聘職位', choices=[
+        ('', '請選擇職位'),
+        ('軟體工程師', '軟體工程師'),
+        ('售貨員', '售貨員'),
+        ('產品經理', '產品經理'),
+        ('倉務員', '倉務員'),
+        ('專案經理', '專案經理')
+    ], validators=[DataRequired(message="請選擇職位")])
+    
+    experience = TextAreaField('工作經驗', validators=[
+        DataRequired(message="請填寫工作經驗"),
+        Length(min=20, message="至少輸入20個字")
+    ])
+
+
 ############################################
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
