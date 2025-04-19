@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What is MUJI? Exhibition</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends 'base.html.j2' %}
+{% block title %}香薰香水調配工作坊 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='workshop_page.css') }}">
+{% endblock %}
+
     <div class="container">
         <h1>What is MUJI? Exhibition</h1>
         <img src="{{ url_for('static', filename='images/what_is_muji_workshop.jpg') }}" alt="What is MUJI? Exhibition" class="event-detail-image">
@@ -17,5 +18,5 @@
         <a href="{{ url_for('events') }}">返回活動列表</a>
         <p><a href="{{ url_for('workshop_submit_form') }}">現即報名</a></p>
     </div>
-</body>
-</html>
+
+{% endblock %}
