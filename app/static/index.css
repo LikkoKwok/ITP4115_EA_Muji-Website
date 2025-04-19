@@ -1,0 +1,184 @@
+/* ===== 基礎變量定義 ===== */
+:root {
+    /* MUJI 標誌性色彩 */
+    --muji-beige: #f9f5f0;
+    --muji-dark: #333333;
+    --muji-gray: #e0e0e0;
+    --muji-light-gray: #999999;
+    --muji-white: #ffffff;
+    --muji-red: #e60033; /* MUJI 品牌紅 */
+  
+    /* 間距系統 */
+    --space-xs: 5px;
+    --space-sm: 10px;
+    --space-md: 15px;
+    --space-lg: 20px;
+    --space-xl: 30px;
+  
+    /* 字體系統 */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2rem;
+  }
+  
+  /* ===== 全局基礎樣式 ===== */
+  body {
+    background-color: var(--muji-beige);
+    color: var(--muji-dark);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: var(--font-light);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ===== 標題樣式 ===== */
+  .muji-title {
+    font-weight: var(--font-light);
+    font-size: var(--font-size-xxl);
+    color: var(--muji-dark);
+    letter-spacing: 0.5px;
+    margin: var(--space-xl) 0 var(--space-lg);
+    text-align: center;
+  }
+  
+  /* ===== 表單優化 ===== */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    padding: var(--space-lg);
+    background-color: var(--muji-white);
+    border: 1px solid var(--muji-gray);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .form-control {
+    border-radius: 0;
+    border: 1px solid var(--muji-gray);
+    font-weight: var(--font-light);
+    padding: var(--space-sm) var(--space-md);
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: var(--muji-light-gray);
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .btn-default {
+    background-color: var(--muji-dark);
+    color: var(--muji-white);
+    border: none;
+    border-radius: 0;
+    padding: var(--space-sm) var(--space-lg);
+    font-weight: var(--font-light);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-default:hover {
+    background-color: #555555;
+    color: var(--muji-white);
+    transform: translateY(-1px);
+  }
+  
+  /* ===== 文章列表 ===== */
+  .post {
+    background-color: var(--muji-white);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    border: 1px solid var(--muji-gray);
+    transition: all 0.3s ease;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .post-author {
+    font-weight: var(--font-regular);
+    color: var(--muji-dark);
+  }
+  
+  .post-timestamp {
+    color: var(--muji-light-gray);
+    font-size: 0.85rem;
+  }
+  
+  .post-body {
+    font-weight: var(--font-light);
+    line-height: 1.6;
+    margin: var(--space-md) 0 0;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--muji-gray);
+  }
+  
+  /* ===== 分頁控制 ===== */
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: var(--space-xl) 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .pager li a {
+    color: var(--muji-dark);
+    border: 1px solid var(--muji-gray);
+    border-radius: 0;
+    padding: var(--space-sm) var(--space-md);
+    font-weight: var(--font-light);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .pager li a:hover {
+    background-color: var(--muji-white);
+    border-color: var(--muji-light-gray);
+  }
+  
+  .pager li.disabled a {
+    color: var(--muji-gray) !important;
+    cursor: not-allowed;
+  }
+  
+  /* ===== 響應式設計 ===== */
+  @media (max-width: 768px) {
+    :root {
+      --space-md: 10px;
+      --space-lg: 15px;
+      --space-xl: 20px;
+    }
+    
+    .muji-title {
+      font-size: var(--font-size-xl);
+    }
+    
+    .form-container,
+    .post {
+      padding: var(--space-md);
+      margin-left: var(--space-sm);
+      margin-right: var(--space-sm);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pager {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .pager li {
+      width: 100%;
+      text-align: center;
+    }
+  }

@@ -14,8 +14,19 @@
     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji_hk.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.cs') }}">     
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.css') }}">     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/storetop.css') }}">
+
+    <style>
+        /* 更高优先级的选择器覆盖 */
+        .container .muji-title {
+            display: block;
+            color: #333;  /* MUJI 品牌色 */
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+    </style>
+
 {% endblock %}
 
 {% block navbar %}
