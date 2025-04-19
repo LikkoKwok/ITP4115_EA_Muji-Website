@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+
+  img {
+    width: 400px;   /* 默认宽度 */
+    height: 200px;  /* 默认高度 */
+    max-width: 100%;  /* 限制不超过父容器宽度 */
+    height: auto;     /* 高度按比例自动调整 */
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between; 
+    padding: 1rem 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  
+  .banner img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-categories {
+    padding: 2rem 5%;
+  }
+  
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }

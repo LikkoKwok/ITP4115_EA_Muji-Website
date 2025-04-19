@@ -5,25 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>無印良品香港 | MUJI Hong Kong</title>
-  <link rel="stylesheet" href="/app/static/CSS/style.css">
+  <link rel="stylesheet" href="./static/style2.css">
 </head>
 <body>
   <!-- 導航欄 -->
   <nav class="navbar">
     <div class="logo">
-      <img src="/app/static/images/muji-logo.png" width="300" height="200" alt="MUJI Logo">
+      <img src="{{ url_for('static', filename='images/muji-logo.png') }}" width="300" height="200" alt="MUJI Logo">
     </div>
-    <ul class="nav-links">
-      <li><a href="#">產品</a></li>
+    <ul class="nav-links"></ul>
+      <li><a href="register">註冊/登入</a></li>
       <li><a href="store">最新消息</a></li>
-      <li><a href="#">店舖資訊</a></li>
-      <li><a href="#">購物車</a></li>
+      <li><a href="events">店內活動</a></li>
+      <li><a href="contact-us">顧客服務</a></li>
+      <li><a href="what_is_muji_workshop">What is MUJI</a></li>
     </ul>
   </nav>
 
   <!-- 主視覺 Banner -->
   <section class="banner">
-    <img src="/app/static/images/home-banner.png" width="300" height="200" alt="主視覺圖片">
+    <img src="{{ url_for('static', filename='images/home-banner.png') }}" width="300" height="200" alt="主視覺圖片">
   </section>
 
   <!-- 商品分類 -->
@@ -31,10 +32,10 @@
     <h2>人氣產品</h2>
     <div class="category-grid"> 
       <div class="category-item">
-      <li><a href="#"><img src="/app/static/images/furniture.jpg" alt="家具"></a></li>
+      <li><a href="#"><img src="{{ url_for('static', filename='images/furniture.jpg') }}" alt="家具"></a></li>
       </div>
     <div class="stationer">
-      <li><a href="#"><img src="/app/static/images/stationery.jpg" alt="文具"></a></li>
+      <li><a href="#"><img src="{{ url_for('static', filename='images/stationery.jpg') }}" alt="文具"></a></li>
     </div>
       <!-- 其他分類... -->
     </div>
@@ -56,11 +57,13 @@
 
   <!-- 頁腳 -->
   <footer class="footer">
+    <ul class="nav-links">
+      <li><a href="intord">企業理念</a></li>
+      <li><a href="recruitment">工作機會</a></li>
+      <li><a href="open_muji">Open MUJI</a></li>
+      </ul>
     <p>&copy; 2025 MUJI Hong Kong</p>
     
   </footer>
-
-  <script src="js/main.js"></script>
-  <li><a href="intord">企業理念</a></li>
 </body>
 </html>
