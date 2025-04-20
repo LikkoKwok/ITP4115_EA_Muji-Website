@@ -14,8 +14,19 @@
     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji_hk.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.cs') }}">     
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.css') }}">     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/storetop.css') }}">
+
+    <style>
+        /* 更高优先级的选择器覆盖 */
+        .container .muji-title {
+            display: block;
+            color: #333;  /* MUJI 品牌色 */
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+    </style>
+
 {% endblock %}
 
 {% block navbar %}
@@ -60,26 +71,26 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="z-index: 999; background-color: #ffffff; border-radius: 0px;">
-                    {% if current_user.is_authenticated %}
+                    {# {% if current_user.is_authenticated %}
                         <li>
                             <a href="{{ url_for('cart') }}" id="tabs" >{{ _('Cart') }} ({{ cart_count }})</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated and current_user.is_admin %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
                             <a href="{{ url_for('admin') }}" id="tabs" >{{ _('Admin') }}</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated %}
                         <li>
                             <a href="{{ url_for('order_history') }}" id="tabs" >{{ _('Order History') }}</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated and current_user.is_admin %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
                             <a href="{{ url_for('user_management') }}" id="tabs" >{{ _('User Management') }}</a>
                         </li>
-                    {% endif %}
+                    {% endif %}#}
                     {% if current_user.is_anonymous %}
                         <li>
                             <a href="{{ url_for('login') }}" id="tabs" >{{ _('Login') }}</a>

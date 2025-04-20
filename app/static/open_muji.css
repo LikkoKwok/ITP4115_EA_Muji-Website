@@ -1,88 +1,112 @@
-:root {
-    --muji-beige: #f5f5f0;    /* 品牌米白 */
-    --muji-dark: #333333;     /* 主文字色 */
-    --muji-gray: #999999;     /* 次要文字 */
-    --muji-border: #e0e0e0;   /* 邊框色 */
-    --muji-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 柔和陰影 */
-  }
-  
-  body {
-    font-family: 'Noto Sans JP', 'Helvetica Neue', sans-serif; /* 日系字體優先 */
-    background-color: var(--muji-beige);
-    color: var(--muji-dark);
-    line-height: 1.6;
-    padding: 0;
-  }
+/* 新增样式 */
+.event-header {
+  margin: 40px 0;
+  text-align: center;
+}
 
-  /* 容器 */
-.event-list {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
-  
-  /* 分類標題 - MUJI 極簡風格 */
-  .category-title {
-    font-size: 1.8rem;
-    font-weight: 300; /* 細體字 */
-    color: var(--muji-dark);
-    margin: 60px 0 30px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--muji-border);
-    letter-spacing: 1px; /* 字距微調 */
-  }
+.main-title {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
 
-  .event {
-    background: white;
-    border-radius: 0; /* MUJI 不用圓角 */
-    border: 1px solid var(--muji-border);
-    padding: 30px;
-    margin-bottom: 30px;
-    transition: transform 0.3s, box-shadow 0.3s;
+.header-description {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.header-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border: 1px solid #e0e0dc;
+}
+
+/* 事件容器 */
+.event-container {
+  margin: 50px 0;
+  background: white;
+  padding: 30px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+}
+
+.category-header {
+  border-bottom: 1px solid #e0e0dc;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.category-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.category-subtitle {
+  font-size: 16px;
+  color: #777;
+}
+
+/* 子事件列表 */
+.event-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-event {
+  display: flex;
+  gap: 30px;
+  padding: 25px 0;
+  border-bottom: 1px dashed #e0e0dc;
+  align-items: center;
+}
+
+.sub-event:last-child {
+  border-bottom: none;
+}
+
+.sub-event-content {
+  flex: 1;
+}
+
+.sub-event-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #33302e;
+}
+
+.sub-event-date {
+  color: #e03c32;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.sub-event-desc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.sub-event-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #e0e0dc;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sub-event {
+    flex-direction: column;
+    gap: 15px;
   }
   
-  .event:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--muji-shadow);
-  }
-  
-  /* 標題 */
-  .event h3 {
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin: 0 0 12px 0;
-    color: var(--muji-dark);
-  }
-  
-  /* 日期 */
-  .event .date {
-    font-size: 2rem;
-    color: var(--muji-gray);
-    margin-bottom: 15px;
-    display: block;
-  }
-  
-  /* 圖片 - 響應式處理 */
-  .event-detail-image {
-    max-width: 100%;
+  .sub-event-image {
+    width: 100%;
     height: auto;
-    margin-top: 20px;
-    display: block;
-    border: 1px solid var(--muji-border);
   }
-
-  @media (max-width: 768px) {
-    .event-list {
-      margin: 20px auto;
-    }
-    
-    .event {
-      padding: 20px;
-    }
-    
-    .category-title {
-      font-size: 1.5rem;
-      margin: 40px 0 20px;
-    }
-  }
-  
+}
