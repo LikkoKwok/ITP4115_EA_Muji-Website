@@ -45,69 +45,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>無印良品分店選擇</h1>
-        <form id="branchForm">
-            {{ form.csrf_token }}
-            <div>
-                <label for="region">選擇地區：</label>
-                {{ form.region(id="region") }}
-            </div>
-            <button type="button" id="showBranches">顯示分店</button>
+        <h1>分店篩選</h1>
+        <form method="POST" action="{{ url_for('location') }}">
+            <label for="region">選擇地區：</label>
+            <select name="region" id="region">
+                <option value="">-- 請選擇地區 --</option>
+                <option value="new_territories">新界</option>
+                <option value="kowloon">九龍</option>
+                <option value="hong_kong_island">香港島</option>
+            </select>
+            <button type="submit">篩選分店</button>
         </form>
-        <div id="branches" class="branch-list"></div>
+        <div class="branch-list">
+            {% if branches %}
+                {% for branch in branches %}
+                    <div class="branch-item">{{ branch.name }}</div>
+                {% endfor %}
+            {% else %}
+                <p>沒有找到符合條件的分店。</p>
+            {% endif %}
+        </div>
     </div>
-
-    <script>
-        class BranchDatabase {
-            constructor() {
-                this.branches = [
-                    { id: 1, name: "新界店 - 荃灣廣場", region: "new_territories" },
-                    { id: 2, name: "新界店 - 沙田新城市廣場", region: "new_territories" },
-                    { id: 3, name: "九龍店 - 又一城", region: "kowloon" },
-                    { id: 4, name: "九龍店 - 旺角朗豪坊", region: "kowloon" },
-                    { id: 5, name: "香港島店 - 銅鑼灣時代廣場", region: "hong_kong_island" },
-                    { id: 6, name: "香港島店 - 中環IFC", region: "hong_kong_island" }
-                ];
-            }
-
-            getBranchesByRegion(region) {
-                return this.branches.filter(branch => branch.region === region);
-            }
-        }
-
-        const database = new BranchDatabase();
-
-        const regionSelect = document.getElementById("region");
-        const showBranchesButton = document.getElementById("showBranches");
-        const branchesContainer = document.getElementById("branches");
-
-        function displayBranches(region) {
-            branchesContainer.innerHTML = "";
-
-            if (!region) {
-                branchesContainer.innerHTML = "<p>請選擇一個地區。</p>";
-                return;
-            }
-
-            const branches = database.getBranchesByRegion(region);
-
-            if (branches.length === 0) {
-                branchesContainer.innerHTML = "<p>該地區暫無分店。</p>";
-                return;
-            }
-
-            branches.forEach(branch => {
-                const branchItem = document.createElement("div");
-                branchItem.className = "branch-item";
-                branchItem.textContent = branch.name;
-                branchesContainer.appendChild(branchItem);
-            });
-        }
-
-        showBranchesButton.addEventListener("click", () => {
-            const selectedRegion = regionSelect.value;
-            displayBranches(selectedRegion);
-        });
-    </script>
 </body>
 </html>

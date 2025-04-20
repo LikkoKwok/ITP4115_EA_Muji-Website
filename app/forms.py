@@ -167,9 +167,12 @@ class PostForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class RegionForm(FlaskForm):
-    region = SelectField('選擇區域', choices=[  
+    id = StringField('Branch ID', validators=[DataRequired()])
+    name = StringField('Branch Name', validators=[DataRequired()])
+    region = SelectField('選擇區域', choices=[
         ('', '請選擇'),
         ('new_territories', '新界'),
         ('kowloon', '九龍'),
         ('hong_kong_island', '香港島')
     ], validators=[DataRequired()])
+    submit = SubmitField('Submit')
