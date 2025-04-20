@@ -420,19 +420,33 @@ def open_muji():
     return render_template('open_muji.html.j2')
   
 @app.route('/location', methods=['GET', 'POST'])
-def location():
-    form = RegionForm()
-    
+def location():  
+    # Handle form submission
     if request.method == 'POST':
-        region = request.form.get('region')
-        branches = Branch.query.filter_by(region=region).all()
+        region = request.form.get('region')  # Get the selected region from the form
+        branches = Branch.query.filter_by(region=region).all()  # Query branches by region
         
+        # If the request is an AJAX request, return JSON data
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify([{'name': branch.name} for branch in branches])
-        else:
-            return render_template('location.html.j2', 
-                                 form=form,
-                                 branches=branches)
-    return render_template('location.html.j2', 
-                         form=form,
-                         branches=None)
+        
+        # Render the template with the filtered branches
+        return render_template('location.html.j2', branches=branches)
+    
+    # Render the template with no branches initially
+    return render_template('location.html.j2', branches=None)
+
+@app.route('/location_form', methods=['GET', 'POST'])
+def location_form():
+    form = RegionForm()
+    if form.validate_on_submit():
+        branch = Branch(
+        id=form.id.data,
+        name=form.name.data,
+        region=form.region.data,
+        )
+        db.session.add(branch)
+        db.session.commit()
+        flash(_('Branch Updated!'))
+        return redirect(url_for('login'))
+    return render_template('location_form.html.j2', title='location_form', form=form)

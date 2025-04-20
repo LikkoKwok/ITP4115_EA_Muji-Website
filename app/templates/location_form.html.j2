@@ -1,0 +1,9 @@
+{% extends "base.html.j2" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}  
+<div class="col-md-4" style="top: 50px">
+            <div style="font-weight:400; font-size:x-large; color:#7f0019">Branch Location Form </div>
+            {{ wtf.quick_form(form) }}
+</div>
+
+{% endblock %}
