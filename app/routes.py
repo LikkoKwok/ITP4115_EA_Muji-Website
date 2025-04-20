@@ -5,8 +5,8 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
-    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm
-from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return
+    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm, RecycleStoreForm
+from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return, RecycleStore
 from app.email import send_password_reset_email
 from flask_uploads import IMAGES, UploadSet
 from werkzeug.utils import secure_filename
@@ -56,8 +56,10 @@ def employee():
     if form.validate_on_submit():  # Check if the form is submitted and valid
         # Create or update the product entry in the database
         product = Product.query.filter_by(name=form.name.data).first()
-        if product:
+        if product is not None:
             # Update existing product
+            product.id = form.id.data
+            product.name = form.name.data
             product.price = form.price.data
             product.description = form.description.data
             product.stock = form.stock.data
@@ -65,6 +67,7 @@ def employee():
         else:
             # Add new product
             product = Product(
+                id=form.id.data,
                 name=form.name.data,
                 price=form.price.data,
                 description=form.description.data,
@@ -76,8 +79,8 @@ def employee():
                 filename = secure_filename(form.image.data.filename)
                 form.image.data.save(f'app/static/product_images/{filename}')
                 product.image = filename
-        # Save the product to the database
-        db.session.add(product)
+            # Save the product to the database
+            db.session.add(product)
         db.session.commit()  # Save changes to the database
         flash('Product entry has been updated successfully!')
         return redirect(url_for('employee'))
@@ -113,14 +116,33 @@ def return_form():
     return render_template('return_form.html.j2', title='Return Form', form=form)
 
 #Likko - View for Table Entries Update (Not shown to puiblic)
-@app.route('/view')
+@app.route('/view_return')
 def show_returns():
     returns = Return.query.all()
-    return render_template('viewport.html.j2', returns=returns)
+    return render_template('view_return.html.j2', returns=returns)
 
+@app.route('/view_product')
 def show_products():
     products = Product.query.all()
-    return render_template('viewport.html.j2', products=products)
+    return render_template('view_product.html.j2', products=products)
+
+#Likko - Recycle Store Form
+@app.route('/muji_cycle_form', methods=['GET', 'POST'])
+def recycle_store_form():
+    form = RecycleStoreForm()
+    if form.validate_on_submit():
+        # Create a new recycle store entry in the database
+        recycle_store_entry = RecycleStore(
+            branch_name=form.branch_name.data,
+            address=form.address.data,
+            bus_hour=form.bus_hour.data,
+            cycle_items=form.cycle_items.data
+        )
+        db.session.add(recycle_store_entry)
+        db.session.commit()
+        flash('Recycle store entry submitted successfully!')
+        return redirect(url_for('product'))
+    return render_template('muji_cycle_form.html.j2', title='Recycle Store Form', form=form)
 
     
 
@@ -138,10 +160,12 @@ def search():
             products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
     return render_template('search.html.j2', title=_('Search Products'), products=products, query=query)
 
+
 #Likko - MUJI Cycle
-@app.route('/mujicycle')
-def mujicycle():
-    return render_template('muji_cycle.html.j2', title='MUJI Cycle')
+@app.route('/mujicycle', methods=['GET'])
+def show_cycle_store():
+    cycle_stores = RecycleStore.query.all()
+    return render_template('mujicycle.html.j2', title='MUJI CYCLE', cycle_stores=cycle_stores)
 
 
 @app.route('/explore')

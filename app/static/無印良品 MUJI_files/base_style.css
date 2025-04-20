@@ -30,3 +30,33 @@
     padding-top: 30px; /* 可选：增加内部上间距 */
 }
 
+/* format for excel tables */
+table {
+	border-collapse: collapse;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+table td {
+	padding: 15px;
+}
+table thead {
+    background-color: #7f0019;
+    color: #ffffff;
+}
+table thead td {
+	background-color:  #dddfe1;
+	
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #dddfe1;
+}
+table tbody td {
+	color: #7f0019;
+	border: 1px solid #dddfe1;
+}
+table tbody tr {
+	background-color: white;
+}
+/* table tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+} */
+/* ///////////////////////////*/

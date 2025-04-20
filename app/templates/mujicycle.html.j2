@@ -1,0 +1,48 @@
+{% extends "base.html.j2" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+<img src="{{ url_for('static', filename='無印良品 MUJI_files/muji_cycle_banner.jpg') }}" width="100%" height="auto">
+
+</div><div style="display: flex; justify-content: center; align-items: center;">
+<img src="{{ url_for('static', filename='無印良品 MUJI_files/mujiXmill.jpg') }}" width="30%" height="auto">
+</div>
+<pre style="font-size: 20px; margin: 20px 20% 20px 20%; background-color: #ffffff; border: 0;">
+
+喵坊延續年初與無印良品的合作，加入MUJI CYCLE 回收再生活動，無印良品在全港七間分店收集顧客不需要的商品，
+把無印商品中的紙品、塑膠、鋁罐及玻璃瓶交給我們循環再造成為再生資源。同時在農曆新年，喵坊與無印良品一起
+展開利是封回收計劃，將不需要的紙利是封或紙揮春放至店內的回收箱，一起實踐資源循環的理念。無論是捐出
+還是領取，讓我們一起令這個新年更加充滿意義！（回收前請先清潔，實踐乾淨回收）
+利是封回收計劃實施店鋪： 無印良品實體店鋪 (MUJI to GO店、萬宜大廈商場期間限定店、澳門威尼斯人店除外)
+
+MUJI CYCLE 回收物品：
+塑膠 - 塑膠瓶、樽裝飲品、PE及PP素材收納物品、其他塑膠器皿
+紙 - 無印良品的內衣紙衣架、雜貨的紙掛鈎、其他的報紙書刊及雜誌、辦公室用紙
+鋁罐及玻璃瓶 - 罐裝飲品、室內香氛瓶、其他鋁罐及玻璃樽
+（以上三項物品收集後將交到喵坊）
+衣物 - 只限無印良品衣物，包括MUJI Labo、IDÉE、男裝、女裝 (物料需為棉、麻或人造纖維少於20%)、
+牛仔布衣物及所有深淺顏色或印有圖案的衣物
+
+</pre>
+<hr>
+<table style="width: 75%; margin: auto;">
+        <thead>
+            <tr>
+                <th>分店</th>
+                <th>地址</th>
+                <th>營業時間</th>
+                <th>可回收物品</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cycle_store in cycle_stores %}
+            <tr>
+                <td>{{ cycle_store.branch_name }}</td>
+                <td>{{ cycle_store.address }}</td>
+                <td>{{ cycle_store.bus_hour }}</td>
+                <td>{{ cycle_store.cycle_items }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% endblock %}
