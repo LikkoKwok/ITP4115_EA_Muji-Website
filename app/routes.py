@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request,g,jsonify
+from flask import render_template, flash, redirect, url_for, request,g, jsonify, Flask
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
@@ -11,9 +11,9 @@ from app.email import send_password_reset_email
 from flask_uploads import IMAGES, UploadSet
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import IntegrityError
-from .models import Branch
-from .forms import RegionForm
-
+from .models import Branch, PersonalApplication, OrganizationApplication
+from .forms import RegionForm, PersonalForm, OrganizationForm
+from datetime import datetime
 
 
 @app.before_request
@@ -395,7 +395,6 @@ def workshop_thankyou():
 
 @app.route('/open_muji')
 def open_muji():
-    return render_template('open_muji.html')
     return render_template('open_muji.html.j2')
   
 @app.route('/location', methods=['GET', 'POST'])
@@ -429,3 +428,50 @@ def location_form():
         flash(_('Branch Updated!'))
         return redirect(url_for('login'))
     return render_template('location_form.html.j2', title='location_form', form=form)
+
+@app.route('/apply')
+def apply():
+     return redirect(url_for('apply_personal'))
+
+@app.route('/apply/personal', methods=['GET', 'POST'])
+def apply_personal():
+    form = PersonalForm()
+    if form.validate_on_submit():
+        application = PersonalApplication(
+            name=form.name.data,
+            phone=form.phone.data,
+            email=form.email.data,
+            location=form.location.data,
+            preferred_date=form.preferred_date.data,
+            apply_date=datetime.now()
+        )
+        db.session.add(application)
+        db.session.commit()
+        return redirect(url_for('view_applications'))
+    return render_template('apply.html.j2', form=form, form_type='personal')
+
+@app.route('/apply/organization', methods=['GET', 'POST'])
+def apply_organization():
+    form = OrganizationForm()
+    if form.validate_on_submit():
+        application = OrganizationApplication(
+            contact_name=form.contact_name.data,
+            brand_name=form.brand_name.data,
+            phone=form.phone.data,
+            email=form.email.data,
+            location=form.location.data,
+            preferred_date=form.preferred_date.data,
+            apply_date=datetime.now()
+        )
+        db.session.add(application)
+        db.session.commit()
+        return redirect(url_for('view_applications'))
+    return render_template('apply.html.j2', form=form, form_type='organization')
+
+@app.route('/applications')
+def view_applications():
+    personal = PersonalApplication.query.all()
+    organizations = OrganizationApplication.query.all()
+    return render_template('applications.html.j2',
+                          personal=personal,
+                          organizations=organizations)

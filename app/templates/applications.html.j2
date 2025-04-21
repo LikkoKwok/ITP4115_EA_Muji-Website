@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>個人申請列表</h2>
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>電話</th>
+            <th>電郵</th>
+            <th>地點</th>
+            <th>申請日期</th>
+        </tr>
+        {% for app in personal %}
+        <tr>
+            <td>{{ app.name }}</td>
+            <td>{{ app.phone }}</td>
+            <td>{{ app.email }}</td>
+            <td>{{ app.location }}</td>
+            <td>{{ app.apply_date.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>組織申請列表</h2>
+    <table>
+        <tr>
+            <th>品牌名稱</th>
+            <th>聯絡人</th>
+            <th>電話</th>
+            <th>電郵</th>
+            <th>地點</th>
+            <th>申請日期</th>
+        </tr>
+        {% for app in organizations %}
+        <tr>
+            <td>{{ app.brand_name }}</td>
+            <td>{{ app.contact_name }}</td>
+            <td>{{ app.phone }}</td>
+            <td>{{ app.email }}</td>
+            <td>{{ app.location }}</td>
+            <td>{{ app.apply_date.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -160,3 +160,23 @@ class Branch(db.Model):
     name = db.Column(db.String(100), nullable=False)
     region = db.Column(db.String(50), nullable=False)
     
+class PersonalApplication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    applicant_type = db.Column(db.String(20), default='personal')
+    name = db.Column(db.String(20))
+    phone = db.Column(db.String(8))
+    email = db.Column(db.String(100))
+    location = db.Column(db.String(10))
+    preferred_date = db.Column(db.Date)
+    apply_date = db.Column(db.DateTime)
+
+class OrganizationApplication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    applicant_type = db.Column(db.String(20), default='organization')
+    brand_name = db.Column(db.String(100))
+    contact_name = db.Column(db.String(20))
+    phone = db.Column(db.String(8))
+    email = db.Column(db.String(100))
+    location = db.Column(db.String(100))
+    preferred_date = db.Column(db.Date)
+    apply_date = db.Column(db.DateTime)

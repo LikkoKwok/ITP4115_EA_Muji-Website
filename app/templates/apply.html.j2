@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MUJI市集申請</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <div class="form-switch">
+        <a href="{{ url_for('apply_personal') }}"><button>個人申請</button></a>
+        <a href="{{ url_for('apply_organization') }}"><button>組織申請</button></a>
+    </div>
+    {% if form_type == 'personal' %}
+    <div id="personal-form">
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.name.label }} {{ form.name() }}
+            {{ form.phone.label }} {{ form.phone() }}
+            {{ form.email.label }} {{ form.email() }}
+            {{ form.location.label }} {{ form.location() }}
+            {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            {{ form.submit() }}
+        </form>
+    </div>
+    {% elif form_type == 'organization' %}
+    <div id="organization-form">
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.contact_name.label }} {{ form.contact_name() }}
+            {{ form.brand_name.label }} {{ form.brand_name() }}
+            {{ form.phone.label }} {{ form.phone() }}
+            {{ form.email.label }} {{ form.email() }}
+            {{ form.location.label }} {{ form.location() }}
+            {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            {{ form.submit() }}
+        </form>
+    </div>
+    {% endif %}
+</body>
+</html>
