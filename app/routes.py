@@ -22,6 +22,11 @@ def before_request():
 
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/main_index', methods=['GET', 'POST'])
+def main():
+    return render_template('main_index.html.j2', title='MUJI HK')
+
+
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -96,6 +101,20 @@ def upload():
         return render_template('upload.html.j2')
     return render_template('upload.html.j2')
 
+#Likko - Reference for Product Search
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('query', '').strip()  # Get the search query from the URL
+    products = []
+    if query:
+        # Search by ID if the query is numeric
+        if query.isdigit():
+            products = Product.query.filter_by(id=int(query)).all()
+        else:
+            # Search by name (case-insensitive)
+            products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
+    return render_template('search.html.j2', title=_('Search Products'), products=products, query=query)
+
 #Likko - Return Form
 @app.route('/return_form', methods=['GET', 'POST'])
 def return_form():
@@ -115,7 +134,7 @@ def return_form():
         return redirect(url_for('product'))
     return render_template('return_form.html.j2', title='Return Form', form=form)
 
-#Likko - View for Table Entries Update (Not shown to puiblic)
+#Likko - View for Table Entries Update
 @app.route('/view_return')
 def show_returns():
     returns = Return.query.all()
@@ -127,8 +146,8 @@ def show_products():
     return render_template('view_product.html.j2', products=products)
 
 #Likko - Recycle Store Form
-@app.route('/muji_cycle_form', methods=['GET', 'POST'])
-def recycle_store_form():
+@app.route('/recycle_form', methods=['GET', 'POST'])
+def recycle_form():
     form = RecycleStoreForm()
     if form.validate_on_submit():
         # Create a new recycle store entry in the database
@@ -141,31 +160,14 @@ def recycle_store_form():
         db.session.add(recycle_store_entry)
         db.session.commit()
         flash('Recycle store entry submitted successfully!')
-        return redirect(url_for('product'))
-    return render_template('muji_cycle_form.html.j2', title='Recycle Store Form', form=form)
-
-    
-
-#Likko - Product Search
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    query = request.args.get('query', '').strip()  # Get the search query from the URL
-    products = []
-    if query:
-        # Search by ID if the query is numeric
-        if query.isdigit():
-            products = Product.query.filter_by(id=int(query)).all()
-        else:
-            # Search by name (case-insensitive)
-            products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
-    return render_template('search.html.j2', title=_('Search Products'), products=products, query=query)
-
+        return redirect(url_for('recycle_form'))
+    return render_template('recycle_form.html.j2', title='Recycle Store Form', form=form)
 
 #Likko - MUJI Cycle
-@app.route('/mujicycle', methods=['GET'])
-def show_cycle_store():
+@app.route('/mujigreen', methods=['GET'])
+def mujigreen():
     cycle_stores = RecycleStore.query.all()
-    return render_template('mujicycle.html.j2', title='MUJI CYCLE', cycle_stores=cycle_stores)
+    return render_template('mujigreen.html.j2', title='MUJI CYCLE', cycle_stores=cycle_stores)
 
 
 @app.route('/explore')

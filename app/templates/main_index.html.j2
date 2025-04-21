@@ -1,0 +1,42 @@
+{% extends 'base.html.j2' %}
+{% block title %}MUJI HK{% endblock %}
+{% block app_content %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+{% endblock %}
+
+<!-- Main Banner -->
+<div class="banner">
+  <img src="{{ url_for('static', filename='images/muji_main_banner.png') }}" width="100%" alt="banner">
+</div>
+
+<hr>
+
+<!-- Promo -->
+<section class="banner">
+  <div><img src="{{ url_for('static', filename='images/member.png') }}" width="100%" ></div>
+</section>
+<br>
+<section class="banner">
+  <div><img src="{{ url_for('static', filename='images/freeshipping_1.png') }}" width="100%" ></div>
+</section>
+<section class="banner">
+  <div><img src="{{ url_for('static', filename='images/freeshipping_2.png') }}" width="100%" ></div>
+</section>
+<hr>
+<section class="flexbox">
+  <div class="flex"><img src="{{ url_for('static', filename='images/new_product.png') }}" width="100%" ></div>
+  <div class="flex"><img src="{{ url_for('static', filename='images/sale.png') }}" width="100%" ></div>
+  <div class="flex"><img src="{{ url_for('static', filename='images/new_price.png') }}" width="100%" ></div>
+  <div class="flex"><img src="{{ url_for('static', filename='images/muji_app.png') }}" width="100%" ></div>
+</section>
+<hr>
+
+<!-- Bottom -->
+<section class="banner">
+  <div><img src="{{ url_for('static', filename='images/bottom.png') }}" width="100%" ></div>
+</section>
+
+{% endblock %}

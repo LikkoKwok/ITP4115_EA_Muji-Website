@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='無印良品 MUJI_files/muji-logo.png') }}" width="45px" height="30px" padding="10px"></a>
+                <a class="navbar-brand" href="{{ url_for('main_index') }}"><img src="{{ url_for('static', filename='無印良品 MUJI_files/muji-logo.png') }}" width="45px" height="30px" padding="10px"></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index: 999; background-color: #ffffff;">
                 <ul class="nav navbar-nav">
@@ -55,7 +55,7 @@
                         <a href="{{ url_for('return_form') }}" id="tabs">{{ _('商品退換') }}</a>
                     </li>
                     <li>
-                        {# <a href="{{ url_for('mujicycle') }}" id="tabs">{{ _('MUJI CYCLE') }}</a> #}
+                        <a href="{{ url_for('mujigreen') }}" id="tabs">{{ _('MUJI CYCLE') }}</a>
                     </li>
                     <li>
                         <a href="{{ url_for('contact_us') }}" id="tabs">{{ _('聯絡我們') }}</a>
@@ -63,7 +63,7 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="z-index: 999; background-color: #ffffff; border-radius: 0px;">
-                    {% if current_user.is_authenticated %}
+                    {# {% if current_user.is_authenticated %}
                         <li>
                             <a href="{{ url_for('cart') }}" id="tabs" >{{ _('Cart') }} ({{ cart_count }})</a>
                         </li>
@@ -82,7 +82,7 @@
                         <li>
                             <a href="{{ url_for('user_management') }}" id="tabs" >{{ _('User Management') }}</a>
                         </li>
-                    {% endif %}
+                    {% endif %} #}
                     {% if current_user.is_anonymous %}
                         <li>
                             <a href="{{ url_for('login') }}" id="tabs" >{{ _('Login') }}</a>

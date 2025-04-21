@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.banner {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+}
+
+.content {
+    align-content: center;
+    margin-left: 25% ;
+    margin-right: 25%;
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
