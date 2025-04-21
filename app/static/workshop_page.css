@@ -1,5 +1,5 @@
 /* 通用活動頁面樣式 */
-.container {
+.workshop-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
@@ -23,6 +23,26 @@ h1 {
     border-bottom: 2px solid #e0e0e0;
     padding-bottom: 0.5rem;
     font-weight: 300;
+}
+
+.muji-title {
+    font-family: 'MUJI Sans', 'Helvetica Neue', Arial, sans-serif; /* 优先使用 MUJI 字体 */
+    color: #333; /* 更深色增强可读性 */
+    font-size: 2.8rem; /* 比默认 h1 更大 */
+    font-weight: 400; /* 适中粗细 */
+    letter-spacing: -0.05rem; /* 紧凑字距 */
+    margin: 2rem 0 1.5rem;
+    border-bottom: none; /* 移除默认下划线 */
+    position: relative;
+}
+
+.muji-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: #e0e0e0;
+    margin-top: 1rem;
 }
 
 p {
@@ -58,6 +78,7 @@ a[href*="submit_form"] {
 a[href*="submit_form"]:hover {
     background-color: #333;
     color: white;
+    transform: scale(0.98); /* 点击时轻微缩小 */
 }
 
 /* 返回連結樣式 */
