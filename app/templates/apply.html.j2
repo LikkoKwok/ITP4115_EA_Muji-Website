@@ -1,39 +1,165 @@
+<!-- apply.html.j2 -->
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
-    <title>MUJI市集申請</title>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>市集攤位申請 | MUJI 無印良品</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --muji-beige: #f5f3e7;
+            --muji-brown: #6e5634;
+            --muji-green: #7d8b6f;
+        }
+
+        body {
+            font-family: 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: var(--muji-beige);
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            border-bottom: 2px solid var(--muji-brown);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h1 {
+            color: var(--muji-brown);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .form-switch {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-switch a {
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .form-switch button {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--muji-brown);
+            color: var(--muji-brown);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .form-switch button:hover {
+            background: var(--muji-brown);
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--muji-green);
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background: var(--muji-green);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .form-notice {
+            color: var(--muji-brown);
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid var(--muji-beige);
+            background: #fff9f0;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-    <div class="form-switch">
-        <a href="{{ url_for('apply_personal') }}"><button>個人申請</button></a>
-        <a href="{{ url_for('apply_organization') }}"><button>組織申請</button></a>
-    </div>
-    {% if form_type == 'personal' %}
-    <div id="personal-form">
+    <div class="container">
+        <div class="form-header">
+            <h1><i class="fas fa-store-alt"></i> 週末市集攤位申請</h1>
+        </div>
+
+        <div class="form-switch">
+            <a href="{{ url_for('apply_personal') }}"><button {% if form_type == 'personal' %}style="background: var(--muji-brown);color:white;"{% endif %}>個人申請</button></a>
+            <a href="{{ url_for('apply_organization') }}"><button {% if form_type == 'organization' %}style="background: var(--muji-brown);color:white;"{% endif %}>組織申請</button></a>
+        </div>
+
+        {% if form_type == 'personal' %}
         <form method="POST">
             {{ form.csrf_token }}
-            {{ form.name.label }} {{ form.name() }}
-            {{ form.phone.label }} {{ form.phone() }}
-            {{ form.email.label }} {{ form.email() }}
-            {{ form.location.label }} {{ form.location() }}
-            {{ form.preferred_date.label }} {{ form.preferred_date() }}
-            {{ form.submit() }}
+            <div class="form-group">
+                {{ form.name.label }} {{ form.name() }}
+                {{ form.phone.label }} {{ form.phone() }}
+                {{ form.email.label }} {{ form.email() }}
+                {{ form.location.label }} {{ form.location() }}
+                {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            </div>
+            <!-- 其他表單字段依此類推 -->
+            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> 提交申請</button>
         </form>
-    </div>
-    {% elif form_type == 'organization' %}
-    <div id="organization-form">
+        {% else %}
         <form method="POST">
             {{ form.csrf_token }}
-            {{ form.contact_name.label }} {{ form.contact_name() }}
-            {{ form.brand_name.label }} {{ form.brand_name() }}
-            {{ form.phone.label }} {{ form.phone() }}
-            {{ form.email.label }} {{ form.email() }}
-            {{ form.location.label }} {{ form.location() }}
-            {{ form.preferred_date.label }} {{ form.preferred_date() }}
-            {{ form.submit() }}
+            <div class="form-group">
+                {{ form.contact_name.label }} {{ form.contact_name() }}
+                {{ form.brand_name.label }} {{ form.brand_name() }}
+                {{ form.phone.label }} {{ form.phone() }}
+                {{ form.email.label }} {{ form.email() }}
+                {{ form.location.label }} {{ form.location() }}
+                {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            </div>
+            <!-- 其他表單字段依此類推 -->
+            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> 提交申請</button>
         </form>
+        {% endif %}
+
+        <div class="form-notice">
+            <p><i class="fas fa-info-circle"></i> 申請說明：</p>
+            <ul>
+                <li>審核結果將於7個工作天內以電郵通知</li>
+                <li>如有疑問請聯絡市集事務部：market@muji.com</li>
+            </ul>
+        </div>
     </div>
-    {% endif %}
 </body>
 </html>
