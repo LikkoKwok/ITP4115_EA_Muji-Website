@@ -5,8 +5,8 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
-    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, RecruitmentForm
-from app.models import User, Post, Product, WorkshopSubmission, Feedback, Applicant
+    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm, RecycleStoreForm
+from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return, RecycleStore, Applicant
 from app.email import send_password_reset_email
 from flask_uploads import IMAGES, UploadSet
 from werkzeug.utils import secure_filename
@@ -46,6 +46,11 @@ def apply_cookies(response):
 ##################################################################
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/main_index', methods=['GET', 'POST'])
+def main():
+    return render_template('main_index.html.j2', title='MUJI HK')
+
+
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -67,20 +72,23 @@ def index():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
-#Likko's Part: Product
+
+#Likko - Product
 @app.route('/product')
 def product():
     return render_template('product.html.j2', title='Product')
 
-#Likko's Part: ProductForm (employee)
+#Likko - ProductForm (employee)
 @app.route('/employee', methods=['GET', 'POST'])
 def employee():
     form = ProductForm()
     if form.validate_on_submit():  # Check if the form is submitted and valid
         # Create or update the product entry in the database
         product = Product.query.filter_by(name=form.name.data).first()
-        if product:
+        if product is not None:
             # Update existing product
+            product.id = form.id.data
+            product.name = form.name.data
             product.price = form.price.data
             product.description = form.description.data
             product.stock = form.stock.data
@@ -88,6 +96,7 @@ def employee():
         else:
             # Add new product
             product = Product(
+                id=form.id.data,
                 name=form.name.data,
                 price=form.price.data,
                 description=form.description.data,
@@ -99,14 +108,14 @@ def employee():
                 filename = secure_filename(form.image.data.filename)
                 form.image.data.save(f'app/static/product_images/{filename}')
                 product.image = filename
-        # Save the product to the database
-        db.session.add(product)
+            # Save the product to the database
+            db.session.add(product)
         db.session.commit()  # Save changes to the database
         flash('Product entry has been updated successfully!')
         return redirect(url_for('employee'))
     return render_template('employee.html.j2', title='員工專用', form=form)
 
-#Likko's Reference for pure file upload
+#Likko - Reference for pure file upload
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST' and 'photo' in request.files:
@@ -116,7 +125,7 @@ def upload():
         return render_template('upload.html.j2')
     return render_template('upload.html.j2')
 
-#Likko's Part: Product Search
+#Likko - Reference for Product Search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.args.get('query', '').strip()  # Get the search query from the URL
@@ -130,7 +139,59 @@ def search():
             products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
     return render_template('search.html.j2', title=_('Search Products'), products=products, query=query)
 
+#Likko - Return Form
+@app.route('/return_form', methods=['GET', 'POST'])
+def return_form():
+    form = ReturnForm()
+    if form.validate_on_submit():
+        # Create a new return entry in the database
+        return_entry = Return(
+            username=form.username.data,
+            product_id=form.product_id.data,
+            receipt_no=form.receipt_no.data,
+            reason=form.reason.data,
+            policy=form.policy.data
+        )
+        db.session.add(return_entry)
+        db.session.commit()
+        flash('Return request submitted successfully!')
+        return redirect(url_for('product'))
+    return render_template('return_form.html.j2', title='Return Form', form=form)
 
+#Likko - View for Table Entries Update
+@app.route('/view_return')
+def show_returns():
+    returns = Return.query.all()
+    return render_template('view_return.html.j2', returns=returns)
+
+@app.route('/view_product')
+def show_products():
+    products = Product.query.all()
+    return render_template('view_product.html.j2', products=products)
+
+#Likko - Recycle Store Form
+@app.route('/recycle_form', methods=['GET', 'POST'])
+def recycle_form():
+    form = RecycleStoreForm()
+    if form.validate_on_submit():
+        # Create a new recycle store entry in the database
+        recycle_store_entry = RecycleStore(
+            branch_name=form.branch_name.data,
+            address=form.address.data,
+            bus_hour=form.bus_hour.data,
+            cycle_items=form.cycle_items.data
+        )
+        db.session.add(recycle_store_entry)
+        db.session.commit()
+        flash('Recycle store entry submitted successfully!')
+        return redirect(url_for('recycle_form'))
+    return render_template('recycle_form.html.j2', title='Recycle Store Form', form=form)
+
+#Likko - MUJI Cycle
+@app.route('/mujigreen', methods=['GET'])
+def mujigreen():
+    cycle_stores = RecycleStore.query.all()
+    return render_template('mujigreen.html.j2', title='MUJI CYCLE', cycle_stores=cycle_stores)
 
 
 @app.route('/explore')

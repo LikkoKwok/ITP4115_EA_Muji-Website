@@ -1,0 +1,30 @@
+{% extends "base.html.j2" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+    <h1>Return Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Product ID</th>
+                <th>Receipt No</th>
+                <th>Reason</th>
+                <th>Policy</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for return_entry in returns %}
+            <tr>
+                <td>{{ return_entry.username }}</td>
+                <td>{{ return_entry.product_id }}</td>
+                <td>{{ return_entry.receipt_no }}</td>
+                <td>{{ return_entry.reason }}</td>
+                <td>{{ return_entry.policy }}</td>
+                <td>{{ return_entry.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

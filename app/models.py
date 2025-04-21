@@ -95,9 +95,9 @@ class Post(db.Model):
     def __repr__(self) -> str:
         return f'<Post {self.body}>'
 
-# Likko's Part: Product Model
+# Likko - Product Model
 class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(128), primary_key=True)
     name = db.Column(db.String(128), unique=True, nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -114,7 +114,30 @@ class Product(db.Model):
         if self.image:
             return url_for('static', filename=f'product_images/{self.image}', _external=True)
         return url_for('static', filename='default_product.png', _external=True)
+    
+# Likko - Return Table
+class Return(db.Model):
+    username = db.Column(db.String(20))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    receipt_no = db.Column(db.Integer, primary_key=True, nullable=False)
+    reason = db.Column(db.Text, nullable=True)
+    policy = db.Column(db.String(20), default='換貨')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    product = db.relationship('Product', backref='returns')
 
+    def __repr__(self):
+        return f'<Return {self.username} - {self.product_id}>'
+    
+# Likko - Recycle Store Table
+class RecycleStore(db.Model):
+    branch_name = db.Column(db.String(128), primary_key=True, nullable=False)
+    address = db.Column(db.String(128), nullable=False)
+    bus_hour = db.Column(db.String(128), nullable=False)
+    cycle_items = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return f'<RecycleStore {self.branch_name}>'
+    
     
 # Workshop_submit_form
 class WorkshopSubmission(db.Model):

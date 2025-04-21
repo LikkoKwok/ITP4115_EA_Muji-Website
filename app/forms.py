@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, PasswordField, BooleanField, SubmitField, \
-    TextAreaField, SelectField, FileField #import additional FileField for product image
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+    TextAreaField, SelectField, FileField, SelectMultipleField #import additional FileField for product image
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User
 
-# Likko's Part: ProductForm for Product Entries
+# Likko - ProductForm
 class ProductForm(FlaskForm):
     id = StringField('Product ID', validators=[DataRequired()])
     name = StringField('Product Name', validators=[DataRequired()])
@@ -29,6 +29,34 @@ class ProductForm(FlaskForm):
             raise ValidationError('Only file formats .jpg, .jpeg, or .png are allowed.')
 
 ##########################################
+
+# Likko - ReturnForm
+class ReturnForm(FlaskForm):
+    username = StringField('用戶名稱', validators=[DataRequired()])
+    product_id = StringField('商品編號', validators=[DataRequired()])
+    receipt_no = StringField('購買收據號碼', validators=[DataRequired()])
+    reason = TextAreaField('退款原因 (只適用於退款)')
+    policy = SelectField('所需之退/換貨服務', choices=[('換貨', '換貨'), ('退款及退貨', '退款及退貨'), ('退款(無須退貨)', '退款(無須退貨)')])
+    submit = SubmitField('提交申請')
+
+    # def validate_product_id(self, product_id):
+    #     product = User.query.filter_by(id=product_id.data).first()
+    #     if product is None:
+    #         raise ValidationError('Invalid Product ID.')
+    # def validate_username(self, username):
+    #     user = User.query.filter_by(username=username.data).first()
+    #     if user is None:
+    #         raise ValidationError('Invalid Username.')
+
+##########################################
+
+# Likko - RecycleStoreForm
+class RecycleStoreForm(FlaskForm):
+    branch_name = StringField('分店', validators=[DataRequired()])
+    address = StringField('地址', validators=[DataRequired()])
+    bus_hour = StringField('營業時間', validators=[DataRequired()])
+    cycle_items = SelectMultipleField('回收物品', choices=['塑膠', '紙', '鋁罐及玻璃瓶', '無印良品衣物'], option_widget=None)   
+    submit = SubmitField('輸入')
 
 # Workshop_submit_form
 
