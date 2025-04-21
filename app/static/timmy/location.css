@@ -1,0 +1,123 @@
+/* MUJI分店查询专用样式 - 继承contact.css框架 */
+:root {
+  --muji-beige: #f5f5f0;    /* 品牌米白 */
+  --muji-red: #e03c32;      /* 标准警示红 */
+  --muji-brown: #454138;    /* 深棕文字 */
+  --muji-light-gray: #e0e0e0; /* 边框用浅灰 */
+}
+
+/* 基础容器（与contact.css统一结构） */
+.container.location-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 标题区（延续contact.css卡片标题风格） */
+.location-header {
+  border-bottom: 1px solid var(--muji-light-gray);
+  padding-bottom: 1.2rem;
+  margin-bottom: 2rem;
+}
+.location-header h1 {
+  color: var(--muji-brown);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  position: relative;
+  text-align: center;
+}
+.location-header h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--muji-red);
+  margin: 0.8rem auto 0;
+}
+
+/* 搜索表单（继承contact.css输入框样式） */
+.location-search {
+  background: white;
+  padding: 2rem;
+  border: 1px solid var(--muji-light-gray);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  margin-bottom: 2.5rem;
+}
+.location-search form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.location-search select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--muji-light-gray);
+  background: var(--muji-beige) url("data:image/svg+xml;charset=UTF-8,%3csvg...") no-repeat right 0.8rem center/1rem;
+  appearance: none;
+}
+.location-search select:focus {
+  outline: none;
+  border-color: var(--muji-brown);
+  background-color: white;
+}
+.location-search button {
+  background: var(--muji-brown);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: fit-content;
+}
+.location-search button:hover {
+  background: var(--muji-red);
+  transform: translateY(-1px);
+}
+
+/* 分店列表（延续contact.css卡片交互逻辑） */
+.branch-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.branch-item {
+  padding: 1.5rem;
+  border: 1px solid var(--muji-light-gray);
+  background: white;
+  transition: all 0.3s;
+  line-height: 1.6;
+}
+.branch-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: var(--muji-beige);
+}
+.branch-item h3 {
+  color: var(--muji-brown);
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--muji-light-gray);
+  padding-bottom: 0.5rem;
+}
+
+/* 空状态提示（与contact.css错误提示风格一致） */
+.branch-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #888;
+  padding: 3rem;
+  background: var(--muji-beige);
+  border-radius: 4px;
+}
+
+/* 响应式调整（同步contact.css断点） */
+@media (max-width: 768px) {
+  .location-search form {
+    grid-template-columns: 1fr;
+  }
+  .branch-list {
+    grid-template-columns: 1fr;
+  }
+}
