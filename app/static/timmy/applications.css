@@ -1,0 +1,103 @@
+/* 基础变量 (扩展contact.css色系) */
+:root {
+    --muji-beige: #f5f5f0;
+    --muji-red: #e03a3a;       /* 沿用contact.css警示色 */
+    --muji-brown: #6b5848;     /* 保留原申请页品牌色 */
+    --text-dark: #333;         /* 继承contact.css文本色 */
+    --text-light: #777;
+    --muji-border: 1px solid #eee; /* 统一边框样式 */
+  }
+  
+  /* 容器结构 (同步contact.css布局逻辑) */
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* 统一字体栈 */
+  }
+  
+  /* 面包屑导航 (完全复用contact.css样式) */
+  .breadcrumb {
+    padding: 0.8rem 0;
+    border-bottom: var(--muji-border);
+    margin-bottom: 2rem;
+    color: var(--text-light);
+  }
+  .breadcrumb a {
+    color: var(--muji-red);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .breadcrumb a:hover {
+    opacity: 0.8;
+  }
+  
+  /* 表格区块 (融合contact.css卡片设计) */
+  .table-section {
+    background: white;
+    padding: 1.5rem;
+    border: var(--muji-border);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 与feedback-form相同阴影 */
+    margin-bottom: 1.5rem;                 /* 与contact-info间距一致 */
+  }
+  .section-title {
+    color: var(--muji-brown);             /* 保留原申请页品牌色 */
+    font-weight: 500;                     /* 与contact-info h2相同字重 */
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed #eee;       /* 更细的分隔线 */
+  }
+  
+  /* 数据表格 (强化contact.css交互细节) */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 1rem;
+    background-color: var(--muji-beige);  /* 与contact-info背景同色 */
+    color: var(--text-dark);              /* 继承contact.css文本色 */
+    font-weight: 500;                    /* 统一字重体系 */
+  }
+  .data-table td {
+    padding: 1rem;
+    border-bottom: var(--muji-border);
+    color: var(--text-dark);              /* 文本色统一 */
+  }
+  .data-table tr:hover td {
+    background-color: rgba(224, 58, 58, 0.03); /* 改用10%透明度的红色 */
+  }
+  
+  /* 返回链接 (融合contact.css链接样式) */
+  .back-link a {
+    color: var(--muji-red) !important;    /* 采用contact.css主色 */
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor; /* 与feedback-form链接相同 */
+    padding-bottom: 0.2rem;
+    transition: opacity 0.3s;            /* 继承contact.css动画 */
+  }
+  .back-link a:hover {
+    opacity: 0.8;                        /* 统一悬停效果 */
+  }
+  .back-link i {
+    margin-right: 0.5rem;
+  }
+  
+  /* 响应式设计 (完全同步contact.css断点) */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+      margin: 1rem auto;
+    }
+    .table-section {
+      padding: 1rem;
+    }
+    .data-table th, 
+    .data-table td {
+      padding: 0.8rem;
+    }
+  }
+  

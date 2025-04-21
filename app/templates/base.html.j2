@@ -130,8 +130,8 @@
                 <ul>
                     <li><a href="https://www.muji.com.hk/zh" target="_self">商品資料</a></li>
                     <li><a href="https://www.muji.com/hk/campaign/?area=footer" target="_self">主題特集</a></li>
-                    <li><a href="https://www.muji.com/hk/events/?area=footer" target="_self">店內活動</a></li>
-                    <li><a href="./location" target="_self">店舗情報</a></li>
+                    <li><a href="{{ url_for('events') }}" target="_self">店內活動</a></li>
+                    <li><a href="{{ url_for('location') }}" target="_self">店舗情報</a></li>
                 </ul>
             </section>
             <section class="footerNav2">
@@ -149,7 +149,7 @@
                     <li><a href="http://www.muji.com/hk/news/index.html" target="_self">新聞發布</a></li>
                     <li><a href="https://www.muji.com/hk/message/2020/" target="_self">企業理念</a></li>
                     <li><a href="https://www.muji.com.hk/zh/contact-us.php" target="_self">顧客服務</a></li>
-                    <li><a href="http://www.muji.com.hk/recruitment/index.html?area=footer" target="_self">工作機會</a></li>
+                    <li><a href="{{ url_for('recruitment') }}" target="_self">工作機會</a></li>
                     <li><a href="{{ url_for('employee') }}" target="_self">員工專用</a></li>
                     <li><a href="{{ url_for('apply') }}" target="_self">無印良品週末市集</a></li>
                 </ul>

@@ -23,6 +23,27 @@ def before_request():
         db.session.commit()
     g.locale = str(get_locale())
 
+#################################################################
+# Cookies
+
+@app.before_request
+def handle_form_cookies():
+    if request.method == 'POST':
+        g.cookies_to_set = {  # 改用字典结构
+            'form_submission': {
+                'value': 'true',
+                'max_age': 3600,
+                'httponly': True
+            }
+        }
+
+@app.after_request
+def apply_cookies(response):
+    if hasattr(g, 'cookies_to_set'):
+        for name, params in g.cookies_to_set.items():
+            response.set_cookie(name, **params)
+    return response
+##################################################################
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])

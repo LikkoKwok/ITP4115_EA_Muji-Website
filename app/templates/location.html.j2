@@ -1,51 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無印良品分店選擇</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .branch-list {
-            margin-top: 20px;
-        }
-        .branch-item {
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            background-color: #f4f4f4;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html.j2' %}
+{% block title %}無印良品分店選擇 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='timmy/location.css') }}">
+{% endblock %}
+
     <div class="container">
-        <h1>分店篩選</h1>
+        <h1 class="muji-title">{{ _('分店篩選') }}</h1>
         <form method="POST" action="{{ url_for('location') }}">
             <label for="region">選擇地區：</label>
             <select name="region" id="region">
@@ -66,5 +30,5 @@
             {% endif %}
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}

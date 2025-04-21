@@ -1,61 +1,14 @@
-<!-- applications.html.j2 -->
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>申請記錄 | MUJI 無印良品</title>
-    <style>
-        /* 共用樣式省略，新增以下表格樣式 */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+{% extends 'base.html.j2' %}
+{% block title %}申請記錄 - MUJI HK{% endblock %}
+{% block app_content %}
 
-        .data-table th {
-            background: var(--muji-green);
-            color: rgb(19, 19, 19);
-            padding: 1rem;
-            text-align: left;
-        }
 
-        .data-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='timmy/applications.css') }}">
+{% endblock %}
 
-        .data-table tr:hover {
-            background: #f9f9f9;
-        }
 
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-        }
-
-        .status-pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .table-section {
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            color: var(--muji-brown);
-            border-left: 4px solid var(--muji-brown);
-            padding-left: 1rem;
-            margin: 2rem 0;
-        }
-    </style>
-</head>
-<body>
     <div class="container">
         <div class="form-header">
             <h1><i class="fas fa-clipboard-list"></i> 申請記錄查詢</h1>
@@ -123,5 +76,5 @@
             </a>
         </div>
     </div>
-</body>
-</html>
+    
+{% endblock %}
