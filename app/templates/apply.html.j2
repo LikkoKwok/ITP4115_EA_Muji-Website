@@ -1,0 +1,59 @@
+{% extends 'base.html.j2' %}
+{% block title %}市集攤位申請 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='timmy/apply.css') }}">
+{% endblock %}
+
+    <div class="container">
+        <div class="form-header">
+            <h1 class="muji-title">{{ _('週末市集攤位申請') }}</h1>
+        </div>
+
+        <div class="form-switch">
+            <a href="{{ url_for('apply_personal') }}"><button {% if form_type == 'personal' %}style="background: var(--muji-brown);color:white;"{% endif %}>個人申請</button></a>
+            <a href="{{ url_for('apply_organization') }}"><button {% if form_type == 'organization' %}style="background: var(--muji-brown);color:white;"{% endif %}>組織申請</button></a>
+        </div>
+
+        {% if form_type == 'personal' %}
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.name.label }} {{ form.name() }}
+                {{ form.phone.label }} {{ form.phone() }}
+                {{ form.email.label }} {{ form.email() }}
+                {{ form.location.label }} {{ form.location() }}
+                {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            </div>
+            <!-- 其他表單字段依此類推 -->
+            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> 提交申請</button>
+        </form>
+        {% else %}
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.contact_name.label }} {{ form.contact_name() }}
+                {{ form.brand_name.label }} {{ form.brand_name() }}
+                {{ form.phone.label }} {{ form.phone() }}
+                {{ form.email.label }} {{ form.email() }}
+                {{ form.location.label }} {{ form.location() }}
+                {{ form.preferred_date.label }} {{ form.preferred_date() }}
+            </div>
+            <!-- 其他表單字段依此類推 -->
+            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> 提交申請</button>
+        </form>
+        {% endif %}
+
+        <div class="form-notice">
+            <p><i class="fas fa-info-circle"></i> 申請說明：</p>
+            <ul>
+                <li>審核結果將於7個工作天內以電郵通知</li>
+                <li>如有疑問請聯絡市集事務部：market@muji.com</li>
+            </ul>
+        </div>
+    </div>
+    
+{% endblock %}

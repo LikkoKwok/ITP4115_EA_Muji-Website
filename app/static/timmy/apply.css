@@ -1,0 +1,83 @@
+/* MUJI市集申请表专用样式 */
+:root {
+    --muji-beige: #f5f5f0;    /* 品牌米白 */
+    --muji-red: #e03c32;      /* 标准警示红 */
+    --muji-brown: #454138;    /* 深棕文字 */
+    --muji-light-gray: #e0e0e0; /* 边框用浅灰 */
+  }
+  
+  /* 基础容器（继承contact.css结构） */
+  .container.stall-container {
+    max-width: 1000px;        /* 比联络表单稍窄 */
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  /* 标题区（强化MUJI风格） */
+  .stall-header {
+    border-bottom: 1px solid var(--muji-light-gray);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stall-header h1 {
+    color: var(--muji-brown);
+    font-weight: 300;         /* 细字体 */
+    letter-spacing: 0.05em;   /* 字母间距 */
+  }
+  
+  /* 表单区块（融合contact-info卡片样式） */
+  .stall-form {
+    background: white;
+    padding: 2rem;
+    border: 1px solid var(--muji-light-gray);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03); /* 更浅的阴影 */
+  }
+  
+  /* 双栏布局（新增） */
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 输入字段（继承feedback-form细节） */
+  .stall-form label {
+    display: block;
+    color: var(--muji-brown);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .stall-form input, 
+  .stall-form select,
+  .stall-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--muji-light-gray);
+    background: var(--muji-beige);
+  }
+  
+  /* 按钮（沿用contact.css交互逻辑） */
+  .submit-btn {
+    background: var(--muji-brown);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .submit-btn:hover {
+    background: var(--muji-red);
+  }
+  
+  /* 响应式调整（同步contact.css断点） */
+  @media (max-width: 768px) {
+    .form-group {
+      grid-template-columns: 1fr; /* 移动端单列 */
+    }
+    .stall-form {
+      padding: 1.5rem;
+    }
+  }
+  

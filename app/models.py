@@ -1,7 +1,11 @@
 from flask import url_for
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta, timezone
 from hashlib import md5
 from app import app, db, login
+from flask_wtf import FlaskForm
+from wtforms import SelectField
+from wtforms.validators import DataRequired
 import jwt
 
 from flask_login import UserMixin
@@ -137,10 +141,15 @@ class RecycleStore(db.Model):
     
 # Workshop_submit_form
 class WorkshopSubmission(db.Model):
+    __tablename__ ='workshop_submission'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     project = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        return f'<Submission {self.email}>'
 
 # Feedback_form
 class Feedback(db.Model):
@@ -155,3 +164,42 @@ class Feedback(db.Model):
     def __repr__(self):
         return f'<Feedback {self.email}>'
 
+# Recruitment_form
+class Applicant(db.Model):
+    __tablename__ = 'applicants'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    position = db.Column(db.String(30), nullable=False)
+    experience = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<Applicant {self.name} - {self.position}>'
+
+class Branch(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    region = db.Column(db.String(50), nullable=False)
+    
+class PersonalApplication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    applicant_type = db.Column(db.String(20), default='personal')
+    name = db.Column(db.String(20))
+    phone = db.Column(db.String(8))
+    email = db.Column(db.String(100))
+    location = db.Column(db.String(10))
+    preferred_date = db.Column(db.Date)
+    apply_date = db.Column(db.DateTime)
+
+class OrganizationApplication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    applicant_type = db.Column(db.String(20), default='organization')
+    brand_name = db.Column(db.String(100))
+    contact_name = db.Column(db.String(20))
+    phone = db.Column(db.String(8))
+    email = db.Column(db.String(100))
+    location = db.Column(db.String(100))
+    preferred_date = db.Column(db.Date)
+    apply_date = db.Column(db.DateTime)

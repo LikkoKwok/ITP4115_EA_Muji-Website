@@ -1,0 +1,50 @@
+/* 感謝頁面專用樣式 - 符合MUJI簡約風格 */
+.thank-you-container {
+    text-align: center;
+    margin: 5rem auto;
+    max-width: 600px;
+    padding: 2rem;
+    background-color: #f9f5f0;  /* MUJI標誌性的米白色背景 */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* 極細陰影增加層次 */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.thank-you-title {
+    display: block !important;
+    opacity: 1 !important;
+    color: #5e5e5e !important; /* MUJI 深灰色 */
+    font-size: 2rem !important;
+}
+
+#countdown {
+    color: #8c8c8c;  /* 次級文字顏色 */
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+    min-width: 250px;
+}
+
+/* 動畫效果增強體驗 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.thank-you-container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .thank-you-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+    .thank-you-title {
+        font-size: 1.8rem;
+    }
+}

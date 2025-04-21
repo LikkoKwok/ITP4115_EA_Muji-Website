@@ -1,0 +1,117 @@
+/* 全局字体与背景 */
+body {
+    font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background-color: #f5f5f0; /* MUJI 经典米色背景 */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+h1 {
+  color: #6b5848; /* MUJI 品牌棕色 */
+  font-size: 24px;
+  font-weight: 400; /* 细体字 */
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+h1:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: #ddd;
+  margin: 15px auto 0;
+}
+
+.form-group {
+    margin-bottom: 25px;
+  }
+  
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #6b5848;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.muji-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+.muji-input:focus {
+  outline: none;
+  border-color: #6b5848;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(107, 88, 72, 0.1);
+}
+
+/* 下拉菜单特殊样式 */
+select.muji-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b5848'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  padding-right: 35px;
+}.muji-submit-btn {
+  background: #6b5848;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.muji-submit-btn:hover {
+  background: #5a4a3a;
+  transform: translateY(-1px);
+}
+
+.muji-submit-btn:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: #c33;
+  font-size: 12px;
+  display: block;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}@media (max-width: 640px) {
+  .muji-form-container {
+    margin: 20px;
+    padding: 25px;
+  }
+  
+  h1 {
+    font-size: 20px;
+  }
+  
+  .muji-input, .muji-submit-btn {
+    padding: 10px 12px;
+  }
+}

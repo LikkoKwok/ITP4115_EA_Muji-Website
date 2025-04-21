@@ -1,55 +1,112 @@
-/* 基本樣式 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+/* 新增样式 */
+.event-header {
+  margin: 40px 0;
+  text-align: center;
 }
 
-/* 活動列表容器 */
-.event-list {
-    max-width: 800px;
-    margin: 0 auto;
+.main-title {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
-/* 活動項目 */
-.event {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.header-description {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 25px;
 }
 
-/* 活動標題 */
-.event h3 {
-    font-size: 1.5rem;
-    color: #000;
-    margin: 0 0 10px 0;
+.header-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border: 1px solid #e0e0dc;
 }
 
-/* 活動日期 */
-.event .date {
-    font-size: 1rem;
-    color: #666;
-    margin: 0;
+/* 事件容器 */
+.event-container {
+  margin: 50px 0;
+  background: white;
+  padding: 30px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.03);
 }
 
-/* 分類標題 */
+.category-header {
+  border-bottom: 1px solid #e0e0dc;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
 .category-title {
-    font-size: 1.8rem;
-    color: #000;
-    margin: 40px 0 20px 0;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 5px;
 }
 
-/* 圖片樣式 */
-.event-detail-image {
-    width: 300px; /* 設置寬度 */
-    height: auto; /* 高度自動調整，保持比例 */
-    margin-top: 10px; /* 與上方內容的間距 */
-    border-radius: 8px; /* 圓角效果 */
+.category-subtitle {
+  font-size: 16px;
+  color: #777;
+}
+
+/* 子事件列表 */
+.event-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-event {
+  display: flex;
+  gap: 30px;
+  padding: 25px 0;
+  border-bottom: 1px dashed #e0e0dc;
+  align-items: center;
+}
+
+.sub-event:last-child {
+  border-bottom: none;
+}
+
+.sub-event-content {
+  flex: 1;
+}
+
+.sub-event-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #33302e;
+}
+
+.sub-event-date {
+  color: #e03c32;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.sub-event-desc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.sub-event-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #e0e0dc;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sub-event {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .sub-event-image {
+    width: 100%;
+    height: auto;
+  }
 }

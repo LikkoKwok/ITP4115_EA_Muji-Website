@@ -7,8 +7,8 @@
     <style>
         :root {
             --muji-beige: #f5f3e7;
-            --muji-brown: #060606;
-        }
+            --muji-brown: #faf6f6;
+        } 
 
         /* 基础容器 */
         .scroll-container {
@@ -24,25 +24,29 @@
             background-size: cover;
             background-position: center;
             transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-        }
+        } 
 
         /* 首屏初始可见 */
         .first-screen {
-            background-image: linear-gradient(
-                rgba(245, 243, 231, 0.9),
-                rgba(245, 243, 231, 0.6)
-            ), url('bg1.jpg');
+            background-image: 
+            url("../static/images/work.jpg");
             z-index: 2;
         }
 
         /* 次屏初始隐藏 */
         .second-screen {
-            background-image: linear-gradient(
-                rgba(255, 255, 255, 0.3),
-                rgba(255, 255, 255, 0.8)
-            ), url('bg2.jpg');
+            background-image: 
+                linear-gradient(
+                 rgba(0, 0, 0, 0.4),
+                 rgba(0, 0, 0, 0.4) 120%
+            ),
+            url("../static/images/work.jpg");
             opacity: 0;
             z-index: 1;
+            background-blend-mode: soft-light;
+            background-size: cover;
+            background-position: center 40%;
+            background-attachment: local;  /* 滚动时产生微妙视差 */
         }
 
         /* 文字容器 */
@@ -79,6 +83,8 @@
         <!-- 首屏在上 -->
         <div class="layer first-screen">
             <div class="content">
+                <div align="center"></div>
+                <a href="main_index"><img src="{{ url_for('static', filename='images/muji-logo.png') }}" alt="MUJI Logo"></a>
                 <h1 class="main-title">舒適感、從何而來</h1>
             </div>
         </div>

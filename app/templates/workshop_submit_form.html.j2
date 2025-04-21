@@ -1,14 +1,15 @@
 {% extends 'base.html.j2' %}
+{% block title %}工作坊報名表單 - MUJI HK{% endblock %}
 {% block app_content %}
 
-{% block title %}
-    {{ super() }} - 工作坊報名表單  <!-- 保留默认标题并追加内容 -->
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='workshop_submit_form.css') }}">
 {% endblock %}
 
     <div class="form-container" style="margin-top: var(--navbar-height);>
-        {# 新增副标题（可选样式类） #}
+        <h1 class="mb-4 text-center">工作坊報名表單</h1>
         <div class="form-header">
-            <h1>工作坊報名表單</h1>
             <p class="form-description">請填寫以下資訊完成報名</p>  <!-- 新增的提示文字 -->
         </div>
         

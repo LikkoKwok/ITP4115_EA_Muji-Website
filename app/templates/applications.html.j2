@@ -1,0 +1,80 @@
+{% extends 'base.html.j2' %}
+{% block title %}申請記錄 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='timmy/applications.css') }}">
+{% endblock %}
+
+
+    <div class="container">
+        <div class="form-header">
+            <h1><i class="fas fa-clipboard-list"></i> 申請記錄查詢</h1>
+        </div>
+
+        <div class="table-section">
+            <h2 class="section-title">個人申請列表</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>申請人</th>
+                        <th>聯絡方式</th>
+                        <th>市集地點</th>
+                        <th>申請日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in personal %}
+                    <tr>
+                        <td>{{ app.name }}</td>
+                        <td>
+                            <div>{{ app.phone }}</div>
+                            <div style="color: var(--muji-green);">{{ app.email }}</div>
+                        </td>
+                        <td>{{ app.location }}</td>
+                        <td>{{ app.apply_date.strftime('%Y/%m/%d %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <h2 class="section-title">組織申請列表</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>品牌名稱</th>
+                        <th>聯絡人</th>
+                        <th>聯絡方式</th>
+                        <th>市集地點</th>
+                        <th>申請日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in organizations %}
+                    <tr>
+                        <td>{{ app.brand_name }}</td>
+                        <td>{{ app.contact_name }}</td>
+                        <td>
+                            <div>{{ app.phone }}</div>
+                            <div style="color: var(--muji-green);">{{ app.email }}</div>
+                        </td>
+                        <td>{{ app.location }}</td>
+                        <td>{{ app.apply_date.strftime('%Y/%m/%d %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="back-link" style="text-align: center; margin-top: 2rem;">
+            <a href="{{ url_for('apply_personal') }}" style="color: var(--muji-brown); text-decoration: none;">
+                <i class="fas fa-arrow-left"></i> 返回申請頁面
+            </a>
+        </div>
+    </div>
+    
+{% endblock %}

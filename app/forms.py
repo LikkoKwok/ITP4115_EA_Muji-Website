@@ -108,6 +108,34 @@ class FeedbackForm(FlaskForm):
     
     submit = SubmitField('提交反馈')
 
+# Recruitment_form
+class RecruitmentForm(FlaskForm):
+    name = StringField('姓名', validators=[
+        DataRequired(message="請輸入姓名"),
+        Length(max=50, message="姓名長度過長")
+    ])
+    
+    email = StringField('電子郵件', validators=[
+        DataRequired(message="請輸入電子郵件"),
+        Email(message="無效的電子郵件格式"),
+        Length(max=120)
+    ])
+    
+    position = SelectField('應聘職位', choices=[
+        ('', '請選擇職位'),
+        ('軟體工程師', '軟體工程師'),
+        ('售貨員', '售貨員'),
+        ('產品經理', '產品經理'),
+        ('倉務員', '倉務員'),
+        ('專案經理', '專案經理')
+    ], validators=[DataRequired(message="請選擇職位")])
+    
+    experience = TextAreaField('工作經驗', validators=[
+        DataRequired(message="請填寫工作經驗"),
+        Length(min=20, message="至少輸入20個字")
+    ])
+
+
 ############################################
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -165,3 +193,32 @@ class EditProfileForm(FlaskForm):
 class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class RegionForm(FlaskForm):
+    id = StringField('Branch ID', validators=[DataRequired()])
+    name = StringField('Branch Name', validators=[DataRequired()])
+    region = SelectField('選擇區域', choices=[
+        ('', '請選擇'),
+        ('new_territories', '新界'),
+        ('kowloon', '九龍'),
+        ('hong_kong_island', '香港島')
+    ], validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class BaseForm(FlaskForm):
+    phone = StringField('聯絡電話', validators=[DataRequired()])
+    email = StringField('聯絡電郵', validators=[DataRequired(), Email()])
+    location = SelectField('市集地點', choices=[
+        ('taipei', '皇室堡'),
+        ('taichung', '奧海城'),
+        ('kaohsiung', '圍方')
+    ])
+    preferred_date = DateField('首選日期', format='%Y-%m-%d')
+    submit = SubmitField('提交申請')
+
+class PersonalForm(BaseForm):
+    name = StringField('申請人姓名', validators=[DataRequired()])
+
+class OrganizationForm(BaseForm):
+    contact_name = StringField('聯絡人姓名', validators=[DataRequired()])
+    brand_name = StringField('品牌名稱', validators=[DataRequired()])

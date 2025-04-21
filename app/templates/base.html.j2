@@ -14,8 +14,19 @@
     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/muji_hk.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.cs') }}">     
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/store.css') }}">     
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='無印良品 MUJI_files/storetop.css') }}">
+
+    <style>
+        /* 更高优先级的选择器覆盖 */
+        .container .muji-title {
+            display: block;
+            color: #333;  /* MUJI 品牌色 */
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+    </style>
+
 {% endblock %}
 
 {% block navbar %}
@@ -67,22 +78,24 @@
                         <li>
                             <a href="{{ url_for('cart') }}" id="tabs" >{{ _('Cart') }} ({{ cart_count }})</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated and current_user.is_admin %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
                             <a href="{{ url_for('admin') }}" id="tabs" >{{ _('Admin') }}</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated %}
                         <li>
                             <a href="{{ url_for('order_history') }}" id="tabs" >{{ _('Order History') }}</a>
                         </li>
-                    {% endif %}
-                    {% if current_user.is_authenticated and current_user.is_admin %}
+                    {% endif %}#}
+                    {# {% if current_user.is_authenticated and current_user.is_admin %}
                         <li>
                             <a href="{{ url_for('user_management') }}" id="tabs" >{{ _('User Management') }}</a>
                         </li>
+
                     {% endif %} #}
+
                     {% if current_user.is_anonymous %}
                         <li>
                             <a href="{{ url_for('login') }}" id="tabs" >{{ _('Login') }}</a>
@@ -122,8 +135,8 @@
                 <ul>
                     <li><a href="https://www.muji.com.hk/zh" target="_self">商品資料</a></li>
                     <li><a href="https://www.muji.com/hk/campaign/?area=footer" target="_self">主題特集</a></li>
-                    <li><a href="https://www.muji.com/hk/events/?area=footer" target="_self">店內活動</a></li>
-                    <li><a href="http://www.muji.com/storelocator/?c=hk" target="_self">店舗情報</a></li>
+                    <li><a href="{{ url_for('events') }}" target="_self">店內活動</a></li>
+                    <li><a href="{{ url_for('location') }}" target="_self">店舗情報</a></li>
                 </ul>
             </section>
             <section class="footerNav2">
@@ -141,8 +154,9 @@
                     <li><a href="http://www.muji.com/hk/news/index.html" target="_self">新聞發布</a></li>
                     <li><a href="https://www.muji.com/hk/message/2020/" target="_self">企業理念</a></li>
                     <li><a href="https://www.muji.com.hk/zh/contact-us.php" target="_self">顧客服務</a></li>
-                    <li><a href="http://www.muji.com.hk/recruitment/index.html?area=footer" target="_self">工作機會</a></li>
+                    <li><a href="{{ url_for('recruitment') }}" target="_self">工作機會</a></li>
                     <li><a href="{{ url_for('employee') }}" target="_self">員工專用</a></li>
+                    <li><a href="{{ url_for('apply') }}" target="_self">無印良品週末市集</a></li>
                 </ul>
             </section>
             <section class="footerNav5">

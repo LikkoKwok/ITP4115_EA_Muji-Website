@@ -1,16 +1,19 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request,g, jsonify, Flask
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
     ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm, RecycleStoreForm
-from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return, RecycleStore
+from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return, RecycleStore, Applicant
 from app.email import send_password_reset_email
 from flask_uploads import IMAGES, UploadSet
 from werkzeug.utils import secure_filename
-
+from sqlalchemy.exc import IntegrityError
+from .models import Branch, PersonalApplication, OrganizationApplication
+from .forms import RegionForm, PersonalForm, OrganizationForm
+from datetime import datetime
 
 
 @app.before_request
@@ -20,6 +23,27 @@ def before_request():
         db.session.commit()
     g.locale = str(get_locale())
 
+#################################################################
+# Cookies
+
+@app.before_request
+def handle_form_cookies():
+    if request.method == 'POST':
+        g.cookies_to_set = {  # 改用字典结构
+            'form_submission': {
+                'value': 'true',
+                'max_age': 3600,
+                'httponly': True
+            }
+        }
+
+@app.after_request
+def apply_cookies(response):
+    if hasattr(g, 'cookies_to_set'):
+        for name, params in g.cookies_to_set.items():
+            response.set_cookie(name, **params)
+    return response
+##################################################################
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/main_index', methods=['GET', 'POST'])
@@ -325,18 +349,44 @@ def recruitment():
 
 # Recruitment_form
 
-@app.route('/recruitment_form')
+@app.route('/recruitment_form', methods=['GET', 'POST'])
 def recruitment_form():
-    return render_template('recruitment_form.html.j2')
+    form = RecruitmentForm()
+    
+    if form.validate_on_submit():
+        # 檢查 email 是否已存在
+        existing_applicant = Applicant.query.filter_by(email=form.email.data).first()
+        if existing_applicant:
+            flash('此電子郵件已提交過申請，請使用其他郵件！', 'error')
+            return redirect(url_for('recruitment_form'))
+        
+        # 嘗試提交申請
+        try:
+            applicant = Applicant(
+                name=form.name.data,
+                email=form.email.data,
+                position=form.position.data,
+                experience=form.experience.data
+            )
+            db.session.add(applicant)
+            db.session.commit()
+            flash('申請已提交成功！', 'success')
+            return redirect(url_for('recruitment_thankyou'))  # 導向感謝頁面
+        except IntegrityError:
+            db.session.rollback()  # 回滾避免髒資料
+            flash('提交失敗：電子郵件已被使用！', 'error')
+        except Exception as e:
+            db.session.rollback()  # 其他錯誤也回滾
+            flash('提交過程中發生錯誤，請稍後再試！', 'error')
+        
+        return redirect(url_for('recruitment_form'))  # 錯誤時重新導向
+    
+    return render_template('recruitment_form.html.j2', form=form)
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    name = request.form['name']
-    email = request.form['email']
-    position = request.form['position']
-    experience = request.form['experience']
-    # 這裡可以將資料儲存到資料庫或進行其他處理
-    return f"感謝 {name} 提交申請！我們會盡快與您聯繫。"
+@app.route('/recruitment_thankyou')
+def recruitment_thankyou():
+    return render_template('recruitment_thankyou.html.j2')
+
 
 # contact us/ feedback
 
@@ -358,12 +408,16 @@ def feedback_form():
                 db.session.add(feedback)
                 db.session.commit()
                 flash('反馈已成功提交！', 'success')
-                return redirect(url_for('thank_you'))
+                return redirect(url_for('feedback_thankyou'))
             except Exception as e:
                 db.session.rollback()
                 flash(f'提交失败: {str(e)}', 'danger')
         
         return render_template('feedback_form.html.j2', form=form)
+
+@app.route('/feedback/thankyou')
+def feedback_thankyou():
+    return render_template('feedback_thankyou.html.j2')
 
 
 # events
@@ -411,16 +465,95 @@ def workshop_submit_form():
         new_record = WorkshopSubmission(name=form.name.data, email=form.email.data, project=form.project.data)
         db.session.add(new_record)
         db.session.commit()
-        return redirect(url_for('thank_you'))
+        return redirect(url_for('workshop_thankyou'))
     
     return render_template('workshop_submit_form.html.j2', form=form)
 
-@app.route('/thank_you')
-def thank_you():
-    return "<h1>報名成功！</h1>"
+@app.route('/workshop_thankyou')
+def workshop_thankyou():
+    return render_template('workshop_thankyou.html.j2')
 
 #Open muji
 
 @app.route('/open_muji')
 def open_muji():
-    return render_template('open_muji.html')
+    return render_template('open_muji.html.j2')
+  
+@app.route('/location', methods=['GET', 'POST'])
+def location():  
+    # Handle form submission
+    if request.method == 'POST':
+        region = request.form.get('region')  # Get the selected region from the form
+        branches = Branch.query.filter_by(region=region).all()  # Query branches by region
+        
+        # If the request is an AJAX request, return JSON data
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify([{'name': branch.name} for branch in branches])
+        
+        # Render the template with the filtered branches
+        return render_template('location.html.j2', branches=branches)
+    
+    # Render the template with no branches initially
+    return render_template('location.html.j2', branches=None)
+
+@app.route('/location_form', methods=['GET', 'POST'])
+def location_form():
+    form = RegionForm()
+    if form.validate_on_submit():
+        branch = Branch(
+        id=form.id.data,
+        name=form.name.data,
+        region=form.region.data,
+        )
+        db.session.add(branch)
+        db.session.commit()
+        flash(_('Branch Updated!'))
+        return redirect(url_for('login'))
+    return render_template('location_form.html.j2', title='location_form', form=form)
+
+@app.route('/apply')
+def apply():
+     return redirect(url_for('apply_personal'))
+
+@app.route('/apply/personal', methods=['GET', 'POST'])
+def apply_personal():
+    form = PersonalForm()
+    if form.validate_on_submit():
+        application = PersonalApplication(
+            name=form.name.data,
+            phone=form.phone.data,
+            email=form.email.data,
+            location=form.location.data,
+            preferred_date=form.preferred_date.data,
+            apply_date=datetime.now()
+        )
+        db.session.add(application)
+        db.session.commit()
+        return redirect(url_for('view_applications'))
+    return render_template('apply.html.j2', form=form, form_type='personal')
+
+@app.route('/apply/organization', methods=['GET', 'POST'])
+def apply_organization():
+    form = OrganizationForm()
+    if form.validate_on_submit():
+        application = OrganizationApplication(
+            contact_name=form.contact_name.data,
+            brand_name=form.brand_name.data,
+            phone=form.phone.data,
+            email=form.email.data,
+            location=form.location.data,
+            preferred_date=form.preferred_date.data,
+            apply_date=datetime.now()
+        )
+        db.session.add(application)
+        db.session.commit()
+        return redirect(url_for('view_applications'))
+    return render_template('apply.html.j2', form=form, form_type='organization')
+
+@app.route('/applications')
+def view_applications():
+    personal = PersonalApplication.query.all()
+    organizations = OrganizationApplication.query.all()
+    return render_template('applications.html.j2',
+                          personal=personal,
+                          organizations=organizations)

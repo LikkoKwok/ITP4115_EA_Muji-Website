@@ -1,0 +1,34 @@
+{% extends 'base.html.j2' %}
+{% block title %}無印良品分店選擇 - MUJI HK{% endblock %}
+{% block app_content %}
+
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='timmy/location.css') }}">
+{% endblock %}
+
+    <div class="container">
+        <h1 class="muji-title">{{ _('分店篩選') }}</h1>
+        <form method="POST" action="{{ url_for('location') }}">
+            <label for="region">選擇地區：</label>
+            <select name="region" id="region">
+                <option value="">-- 請選擇地區 --</option>
+                <option value="new_territories">新界</option>
+                <option value="kowloon">九龍</option>
+                <option value="hong_kong_island">香港島</option>
+            </select>
+            <button type="submit">篩選分店</button>
+        </form>
+        <div class="branch-list">
+            {% if branches %}
+                {% for branch in branches %}
+                    <div class="branch-item">{{ branch.name }}</div>
+                {% endfor %}
+            {% else %}
+                <p>沒有找到符合條件的分店。</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
