@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+from wtforms import StringField, DateField, PasswordField, BooleanField, SubmitField, \
     TextAreaField, SelectField, FileField #import additional FileField for product image
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
@@ -176,3 +176,21 @@ class RegionForm(FlaskForm):
         ('hong_kong_island', '香港島')
     ], validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class BaseForm(FlaskForm):
+    phone = StringField('聯絡電話', validators=[DataRequired()])
+    email = StringField('聯絡電郵', validators=[DataRequired(), Email()])
+    location = SelectField('市集地點', choices=[
+        ('taipei', '皇室堡'),
+        ('taichung', '奧海城'),
+        ('kaohsiung', '圍方')
+    ])
+    preferred_date = DateField('首選日期', format='%Y-%m-%d')
+    submit = SubmitField('提交申請')
+
+class PersonalForm(BaseForm):
+    name = StringField('申請人姓名', validators=[DataRequired()])
+
+class OrganizationForm(BaseForm):
+    contact_name = StringField('聯絡人姓名', validators=[DataRequired()])
+    brand_name = StringField('品牌名稱', validators=[DataRequired()])
