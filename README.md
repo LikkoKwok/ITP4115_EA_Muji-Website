@@ -1,18 +1,14 @@
 
-# How to create translation
-Run following commands
+# Hi; it serves to reverse engineer the MUJI HK website,
+with redesigned navigation & additional features for better user experience
 ```
-cd app/
-mkdir translations
-pybabel extract -F babel.cfg -k lazy_gettext -o translations/messages.pot .
-pybabel init -i translations/messages.pot -d translations -l en
-pybabel init -i translations/messages.pot -d translations -l es
-pybabel init -i translations/messages.pot -d translations -l zh
-pybabel compile -d translations
-```
-
-# How to update translation
-```
-cd app/
-pybabel update -i translations/messages.pot -d translations
+Some major pages and functions include:
+1. Viewing product info @ /view_product
+2. MUJI Cycle programme @ /mujigreen
+3. Product return form @ /return_form
+4. Job vacancy @ /recruitment
+5. Customer feedback @ /feedback_form
+6. Activity application @ /event
+7. Store location @ /location
+8. Market stall application @ /apply
 ```
