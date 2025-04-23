@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
-    TextAreaField, SelectField, FileField, SelectMultipleField #import additional FileField for product image
+    TextAreaField, SelectField, FileField, SelectMultipleField, DateField #import additional FileField for product image
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User

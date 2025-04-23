@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
-    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm, RecycleStoreForm
+    ResetPasswordRequestForm, ResetPasswordForm, ProductForm, WorkshopForm, FeedbackForm, ReturnForm, RecycleStoreForm, RecruitmentForm
 from app.models import User, Post, Product, WorkshopSubmission, Feedback, Return, RecycleStore, Applicant
 from app.email import send_password_reset_email
 from flask_uploads import IMAGES, UploadSet
