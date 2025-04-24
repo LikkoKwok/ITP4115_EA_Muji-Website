@@ -206,12 +206,12 @@ class RegionForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class BaseForm(FlaskForm):
-    phone = StringField('聯絡電話', validators=[DataRequired()])
-    email = StringField('聯絡電郵', validators=[DataRequired(), Email()])
+    phone = StringField('聯絡電話', validators=[DataRequired(),Length(max=8)])
+    email = StringField('聯絡電郵', validators=[DataRequired(),Length(max=40),Email()])
     location = SelectField('市集地點', choices=[
-        ('taipei', '皇室堡'),
-        ('taichung', '奧海城'),
-        ('kaohsiung', '圍方')
+        ('皇室堡', '皇室堡'),
+        ('奧海城', '奧海城'),
+        ('圍方', '圍方')
     ])
     preferred_date = DateField('首選日期', format='%Y-%m-%d')
     submit = SubmitField('提交申請')
