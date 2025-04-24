@@ -173,7 +173,9 @@ class Applicant(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     position = db.Column(db.String(30), nullable=False)
     experience = db.Column(db.Text, nullable=False)
+    branch_id = db.Column(db.Integer, db.ForeignKey('branch.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    branch = db.relationship('Branch', backref='applicants')
     
     def __repr__(self):
         return f'<Applicant {self.name} - {self.position}>'

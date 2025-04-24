@@ -3,7 +3,8 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
     TextAreaField, SelectField, FileField, SelectMultipleField, DateField #import additional FileField for product image
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
-from app.models import User
+from app.models import User, Branch
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 # Likko - ProductForm
 class ProductForm(FlaskForm):
@@ -129,7 +130,17 @@ class RecruitmentForm(FlaskForm):
         ('倉務員', '倉務員'),
         ('專案經理', '專案經理')
     ], validators=[DataRequired(message="請選擇職位")])
-    
+
+        # 新增分支机构选择字段
+    branch = QuerySelectField(
+        '選擇分支機構',
+        query_factory=lambda: Branch.query.all(),
+        get_label='name',
+        validators=[DataRequired(message="請選擇分支機構")],
+        allow_blank=True,
+        blank_text='請選擇分支機構'
+    )
+        
     experience = TextAreaField('工作經驗', validators=[
         DataRequired(message="請填寫工作經驗"),
         Length(min=20, message="至少輸入20個字")
