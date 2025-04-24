@@ -354,6 +354,7 @@ def recruitment_form():
     form = RecruitmentForm()
     
     if form.validate_on_submit():
+        print("表单验证通过")  # 调试输出
         # 檢查 email 是否已存在
         existing_applicant = Applicant.query.filter_by(email=form.email.data).first()
         if existing_applicant:
@@ -366,7 +367,8 @@ def recruitment_form():
                 name=form.name.data,
                 email=form.email.data,
                 position=form.position.data,
-                experience=form.experience.data
+                experience=form.experience.data,
+                branch_id=form.branch.data.id 
             )
             db.session.add(applicant)
             db.session.commit()
@@ -508,7 +510,7 @@ def location_form():
         db.session.add(branch)
         db.session.commit()
         flash(_('Branch Updated!'))
-        return redirect(url_for('login'))
+        return redirect(url_for('location_form'))
     return render_template('location_form.html.j2', title='location_form', form=form)
 
 @app.route('/apply')

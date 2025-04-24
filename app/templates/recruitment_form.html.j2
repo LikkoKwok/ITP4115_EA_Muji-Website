@@ -46,6 +46,11 @@
             </div>
 
             <div class="form-group">
+                {{ form.branch.label }} {{ form.branch(class="form-control") }}
+            </div>
+
+
+            <div class="form-group">
                 {{ form.experience.label }}
                 {{ form.experience(class="muji-input") }}
                 {% for error in form.experience.errors %}

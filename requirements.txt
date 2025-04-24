@@ -148,5 +148,6 @@ webcolors==1.12
 webencodings==0.5.1
 websocket-client==1.4.2
 Werkzeug==2.2.2
-WTForms==3.0.1
+WTForms==3.2.1
+WTForms-SQLAlchemy==0.4.2
 zipp==3.11.0
