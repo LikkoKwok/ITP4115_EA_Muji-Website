@@ -183,7 +183,7 @@ class BaseForm(FlaskForm):
     location = SelectField('市集地點', choices=[
         ('皇室堡', '皇室堡'),
         ('奧海城', '奧海城'),
-        ('圍方', '圍方') 
+        ('圍方', '圍方')
     ])
     preferred_date = DateField('首選日期', format='%Y-%m-%d')
     submit = SubmitField('提交申請')
