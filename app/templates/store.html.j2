@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh-HK">
+{% extends "base.html.j2" %}
+
+{% block app_content %}
 
 <title>
 新聞 | 無印良品
 </title>
 <body>
     <div align="center">
-      <a href="main_index"><img src="{{ url_for('static', filename='images/muji-logo.png') }}" width="600" height="200" alt="MUJI Logo"></a>
+      <a href="/"><img src="{{ url_for('static', filename='images/muji-logo.png') }}" width="600" height="200" alt="MUJI Logo"></a>
       </div>
     </body>
 <h2 class="content-title">新聞</a></h2>
@@ -255,6 +256,6 @@
 </tbody>
 </table>
 </section>
-
+{% endblock %}
 
 

@@ -54,6 +54,9 @@
                         <a href="{{ url_for('product') }}" id="tabs">{{ _('商品') }}</a>
                     </li>
                     <li>
+                        <a href="{{ url_for('store_html') }}" id="tabs">{{ _('最新消息') }}</a>
+                    </li>
+                    <li>
                         <a href="{{ url_for('events') }}" id="tabs">{{ _('活動') }}</a>
                     </li>
                     <li>
@@ -147,7 +150,7 @@
                 <ul>    
                     <li><a href="http://www.muji.com/hk/about/?area=footer" target="_self">What is MUJI</a></li>
                     <li><a href="http://www.muji.com/hk/news/index.html" target="_self">新聞發布</a></li>
-                    <li><a href="https://www.muji.com/hk/message/2020/" target="_self">企業理念</a></li>
+                    <li><a href="{{ url_for('intord_html') }}" target="_self">企業理念</a></li>
                     <li><a href="https://www.muji.com.hk/zh/contact-us.php" target="_self">顧客服務</a></li>
                     <li><a href="{{ url_for('recruitment') }}" target="_self">工作機會</a></li>
                     <li><a href="{{ url_for('employee') }}" target="_self">員工專用</a></li>
