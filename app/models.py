@@ -170,7 +170,7 @@ class PersonalApplication(db.Model):
     preferred_date = db.Column(db.Date)
     apply_date = db.Column(db.DateTime)
 
-class OrganizationApplication(db.Model):
+class OrganizationApplication(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     applicant_type = db.Column(db.String(20), default='organization')
     brand_name = db.Column(db.String(100))
