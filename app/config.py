@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or \
-        'postgresql://postgres:postgres@postgresdb:5432/postgres'
+    'postgresql://user:password@mujidb.c2s9zi2lyzue.us-east-1.rds.amazonaws.com:5432/mujidb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER') or "mailhog"
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 1025)
@@ -16,3 +16,5 @@ class Config(object):
     ADMINS = ['cywong@example.com']
     POSTS_PER_PAGE = 3
     LANGUAGES = ['en', 'es', 'zh']
+
+# default old db link: 'postgresql://postgres:postgres@postgresdb:5432/postgres'
