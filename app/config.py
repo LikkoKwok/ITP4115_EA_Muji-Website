@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or \
-    'postgresql://user:password@mujidb.c2s9zi2lyzue.us-east-1.rds.amazonaws.com:5432/mujidb'
+    'postgresql://postgres:postgres@mujidb.c2s9zi2lyzue.us-east-1.rds.amazonaws.com:5432/mujidb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER') or "mailhog"
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 1025)

@@ -58,9 +58,9 @@ if not app.debug:
     root.setLevel(logging.INFO)
     root.info('Microblog startup')
 
-@babel.localeselector
-def get_locale():
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+# @babel.localeselector
+# def get_locale():
+#     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 # You must keep the routes at the end.
 from app import routes, errors
