@@ -1,0 +1,13 @@
+{% extends "base.html.j2" %}
+{% block app_content %}
+<div class="col-md-6" style="top: 50px">
+    <h3>Upload Image</h3>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="photo">Choose file</label>
+            <input id="photo" name="photo" type="file" class="form-control" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+{% endblock %}
